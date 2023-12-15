@@ -15,3 +15,6 @@ I developed this off of QT Framework on Ubuntu. I complied with QMake. This can 
 
 ### Development Proccess
 I started this project without a GUI. I wrote all of the backend encryption algorithms in VS code and that can be found in this repo. From there, I ported this over to QT's IDE to build the GUI. Note that all of these files seem lumped under one directory in this repo, but QT has its own way to storing files nicly that doesn't seem to translate well with git. 
+
+<img width="767" alt="image" src="https://github.com/PhiJam1/ClickGUI/assets/79670114/0429114d-c79a-47ab-8adf-13eb85e1119e">
+
