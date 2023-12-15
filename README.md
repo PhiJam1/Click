@@ -12,3 +12,6 @@ The GUI is thanks to QT Framework. This is built as a widget application. User i
 
 ### How to use
 I developed this off of QT Framework on Ubuntu. I complied with QMake. This can be seen under the `ClickGUI.pro` file. Once you build and run, a new build directory should be created. In that directory, the database `creds.db` will be created for you. It is where all your personal information will end up. 
+
+### Development Proccess
+I started this project without a GUI. I wrote all of the backend encryption algorithms in VS code and that can be found in this repo. From there, I ported this over to QT's IDE to build the GUI. Note that all of these files seem lumped under one directory in this repo, but QT has its own way to storing files nicly that doesn't seem to translate well with git. 
