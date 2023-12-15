@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1164</width>
-    <height>637</height>
+    <height>698</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,20 +23,20 @@
       <x>9</x>
       <y>59</y>
       <width>1151</width>
-      <height>571</height>
+      <height>621</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>7</number>
+     <number>8</number>
     </property>
     <widget class="QWidget" name="SignUpPage">
      <widget class="QGroupBox" name="SignUpBox">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>20</y>
+        <y>70</y>
         <width>251</width>
-        <height>481</height>
+        <height>501</height>
        </rect>
       </property>
       <property name="title">
@@ -46,10 +46,16 @@
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>70</y>
+         <y>80</y>
          <width>211</width>
-         <height>21</height>
+         <height>31</height>
         </rect>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
        </property>
        <property name="html">
         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -66,10 +72,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>110</y>
+         <y>120</y>
          <width>101</width>
          <height>31</height>
         </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -82,10 +91,16 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>150</y>
+         <y>160</y>
          <width>211</width>
-         <height>21</height>
+         <height>31</height>
         </rect>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
        </property>
        <property name="html">
         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -101,11 +116,20 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QPlainTextEdit" name="AccountExistDescp">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>390</y>
+         <x>30</x>
+         <y>440</y>
          <width>201</width>
-         <height>31</height>
+         <height>21</height>
         </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
        </property>
        <property name="plainText">
         <string>Already have an account?</string>
@@ -114,10 +138,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QPushButton" name="SignUpBTN">
        <property name="geometry">
         <rect>
-         <x>70</x>
-         <y>340</y>
-         <width>89</width>
-         <height>25</height>
+         <x>50</x>
+         <y>370</y>
+         <width>141</width>
+         <height>51</height>
         </rect>
        </property>
        <property name="text">
@@ -128,10 +152,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>190</y>
+         <y>200</y>
          <width>101</width>
          <height>31</height>
         </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -144,10 +171,16 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>230</y>
+         <y>240</y>
          <width>211</width>
-         <height>21</height>
+         <height>31</height>
         </rect>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
        </property>
        <property name="html">
         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -164,10 +197,16 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>310</y>
+         <y>330</y>
          <width>211</width>
          <height>21</height>
         </rect>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
        </property>
        <property name="html">
         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -184,10 +223,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>270</y>
+         <y>290</y>
          <width>101</width>
          <height>31</height>
         </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -200,10 +242,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>30</y>
+         <y>40</y>
          <width>101</width>
          <height>31</height>
         </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -215,14 +260,17 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QPushButton" name="LoginRedirect">
        <property name="geometry">
         <rect>
-         <x>70</x>
-         <y>430</y>
-         <width>89</width>
+         <x>60</x>
+         <y>460</y>
+         <width>111</width>
          <height>25</height>
         </rect>
        </property>
        <property name="text">
-        <string>-&gt; Login -&gt;</string>
+        <string>Login Instead</string>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
      </widget>
@@ -230,10 +278,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <property name="geometry">
        <rect>
         <x>320</x>
-        <y>40</y>
+        <y>90</y>
         <width>301</width>
-        <height>261</height>
+        <height>471</height>
        </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="html">
        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -243,41 +294,18 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Sign Up to use the service. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Sign Up to use the service!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </widget>
     <widget class="QWidget" name="LoginPage">
-     <widget class="QTextEdit" name="loginBanner">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>50</y>
-        <width>71</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-      <property name="html">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-hr { height: 1px; border-width: 0; }
-li.unchecked::marker { content: &quot;\2610&quot;; }
-li.checked::marker { content: &quot;\2612&quot;; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Sign in&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
      <widget class="QGroupBox" name="LoginBox">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>90</y>
         <width>241</width>
-        <height>341</height>
+        <height>371</height>
        </rect>
       </property>
       <property name="title">
@@ -287,10 +315,16 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>70</y>
+         <y>80</y>
          <width>211</width>
-         <height>21</height>
+         <height>31</height>
         </rect>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
        </property>
        <property name="html">
         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -307,10 +341,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>30</y>
+         <y>40</y>
          <width>101</width>
          <height>31</height>
         </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -323,10 +360,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>110</y>
+         <y>130</y>
          <width>101</width>
          <height>31</height>
         </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="readOnly">
         <bool>true</bool>
@@ -339,10 +379,16 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>150</y>
+         <y>160</y>
          <width>211</width>
-         <height>21</height>
+         <height>31</height>
         </rect>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
        </property>
        <property name="html">
         <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -358,11 +404,20 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QPlainTextEdit" name="AccountExistDes">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>230</y>
+         <x>30</x>
+         <y>310</y>
          <width>201</width>
-         <height>31</height>
+         <height>21</height>
         </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="verticalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarAlwaysOff</enum>
        </property>
        <property name="plainText">
         <string>Already have an account?</string>
@@ -371,10 +426,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QPushButton" name="LoginBTN">
        <property name="geometry">
         <rect>
-         <x>70</x>
-         <y>190</y>
-         <width>89</width>
-         <height>25</height>
+         <x>50</x>
+         <y>220</y>
+         <width>141</width>
+         <height>51</height>
         </rect>
        </property>
        <property name="text">
@@ -384,14 +439,17 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <widget class="QPushButton" name="SignUpRedirect">
        <property name="geometry">
         <rect>
-         <x>70</x>
-         <y>270</y>
-         <width>101</width>
+         <x>60</x>
+         <y>330</y>
+         <width>121</width>
          <height>25</height>
         </rect>
        </property>
        <property name="text">
-        <string>-&gt; Sign Up -&gt;</string>
+        <string>Sign up Instead</string>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
        </property>
       </widget>
      </widget>
@@ -401,8 +459,11 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <x>280</x>
         <y>110</y>
         <width>301</width>
-        <height>261</height>
+        <height>421</height>
        </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="html">
        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -421,10 +482,18 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>10</y>
+        <y>60</y>
         <width>561</width>
         <height>41</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>48</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="readOnly">
        <bool>true</bool>
@@ -436,17 +505,17 @@ p, li { white-space: pre-wrap; }
 hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Welcome! What would you like to do?&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:48pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Welcome! What would you like to do?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QPushButton" name="CreateBTN">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>140</y>
-        <width>131</width>
-        <height>25</height>
+        <y>130</y>
+        <width>161</width>
+        <height>61</height>
        </rect>
       </property>
       <property name="text">
@@ -456,10 +525,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPushButton" name="RetrieiveBTN">
       <property name="geometry">
        <rect>
-        <x>180</x>
-        <y>140</y>
-        <width>131</width>
-        <height>25</height>
+        <x>20</x>
+        <y>220</y>
+        <width>161</width>
+        <height>61</height>
        </rect>
       </property>
       <property name="text">
@@ -469,10 +538,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPushButton" name="DeleteBTN">
       <property name="geometry">
        <rect>
-        <x>340</x>
-        <y>140</y>
-        <width>131</width>
-        <height>25</height>
+        <x>20</x>
+        <y>310</y>
+        <width>161</width>
+        <height>61</height>
        </rect>
       </property>
       <property name="text">
@@ -482,10 +551,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPushButton" name="EncryptFileBTN">
       <property name="geometry">
        <rect>
-        <x>500</x>
-        <y>140</y>
-        <width>131</width>
-        <height>25</height>
+        <x>20</x>
+        <y>400</y>
+        <width>161</width>
+        <height>61</height>
        </rect>
       </property>
       <property name="text">
@@ -495,14 +564,54 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPushButton" name="DecryptFileBTN">
       <property name="geometry">
        <rect>
-        <x>650</x>
-        <y>140</y>
-        <width>131</width>
-        <height>25</height>
+        <x>20</x>
+        <y>490</y>
+        <width>161</width>
+        <height>61</height>
        </rect>
       </property>
       <property name="text">
        <string>Decrypt File</string>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="plainTextEdit">
+      <property name="geometry">
+       <rect>
+        <x>283</x>
+        <y>130</y>
+        <width>721</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="plainText">
+       <string>Keep Your Data Safe!</string>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="plainTextEdit_2">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>190</y>
+        <width>701</width>
+        <height>221</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="plainText">
+       <string>How many websites do you visit. Out of those, how many require a login. How many passwords are locked up inside your head, or even worse, written on pen and paper? Gone are the days of this archaic and dangerous practice. Click is a password manager that allows you to save all your passwords under one master password. &lt;br&gt;
+
+First of all, without your master password, the content of this application is just garage. All your data is stored in a safely encrypted manner. You can even choose the encryption algorithm to do this! Only your master password can decrypt your personal information. The best part is that we don't even store your master password, only the hash! This means that if someone got their hands on ALL saved data, without you giving them the master password, it is useless.
+</string>
       </property>
      </widget>
     </widget>
@@ -510,11 +619,14 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QTextEdit" name="CreateTXT">
       <property name="geometry">
        <rect>
-        <x>713</x>
-        <y>90</y>
-        <width>271</width>
-        <height>291</height>
+        <x>610</x>
+        <y>140</y>
+        <width>421</width>
+        <height>251</height>
        </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="readOnly">
        <bool>true</bool>
@@ -527,16 +639,16 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Let's create a new cipher. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QPushButton" name="CreateBackBTN">
       <property name="geometry">
        <rect>
-        <x>990</x>
-        <y>510</y>
-        <width>131</width>
-        <height>25</height>
+        <x>950</x>
+        <y>500</y>
+        <width>171</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="text">
@@ -546,10 +658,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPushButton" name="CreateSaveBTN">
       <property name="geometry">
        <rect>
-        <x>840</x>
-        <y>510</y>
-        <width>131</width>
-        <height>25</height>
+        <x>730</x>
+        <y>500</y>
+        <width>171</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="text">
@@ -559,11 +671,20 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QTextEdit" name="CreateSNDesc">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>60</y>
-        <width>171</width>
+        <x>70</x>
+        <y>90</y>
+        <width>161</width>
         <height>41</height>
        </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
       </property>
       <property name="readOnly">
        <bool>true</bool>
@@ -576,17 +697,23 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Service Name&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Service Name&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QTextEdit" name="CreateSN">
       <property name="geometry">
        <rect>
-        <x>240</x>
-        <y>60</y>
+        <x>280</x>
+        <y>90</y>
         <width>161</width>
         <height>41</height>
        </rect>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
       </property>
       <property name="html">
        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -603,11 +730,20 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QTextEdit" name="CreateCTDesc">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>120</y>
+        <x>70</x>
+        <y>160</y>
         <width>171</width>
         <height>41</height>
        </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
       </property>
       <property name="readOnly">
        <bool>true</bool>
@@ -620,17 +756,17 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Cipher Type&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Cipher Type&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:16pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QComboBox" name="CreateCT">
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>130</y>
-        <width>86</width>
-        <height>25</height>
+        <x>280</x>
+        <y>160</y>
+        <width>91</width>
+        <height>41</height>
        </rect>
       </property>
       <item>
@@ -647,11 +783,14 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QTextEdit" name="CreateUsernameDesc">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>190</y>
+        <x>70</x>
+        <y>230</y>
         <width>171</width>
         <height>41</height>
        </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="readOnly">
        <bool>true</bool>
@@ -664,17 +803,20 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Username&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Username&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QTextEdit" name="CreatePasswordDesc">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>260</y>
+        <x>70</x>
+        <y>300</y>
         <width>171</width>
         <height>41</height>
        </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="readOnly">
        <bool>true</bool>
@@ -687,14 +829,14 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Password&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Password&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
      <widget class="QTextEdit" name="CreateUsername">
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>190</y>
+        <x>280</x>
+        <y>230</y>
         <width>161</width>
         <height>41</height>
        </rect>
@@ -713,8 +855,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QTextEdit" name="CreatePassword">
       <property name="geometry">
        <rect>
-        <x>240</x>
-        <y>260</y>
+        <x>280</x>
+        <y>300</y>
         <width>161</width>
         <height>41</height>
        </rect>
@@ -727,8 +869,30 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;hehe&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;sssh!&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="textEdit">
+      <property name="geometry">
+       <rect>
+        <x>600</x>
+        <y>80</y>
+        <width>461</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Let's create a new cipher!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </widget>
@@ -736,11 +900,19 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPlainTextEdit" name="RetrievePageBanner">
       <property name="geometry">
        <rect>
-        <x>50</x>
-        <y>40</y>
-        <width>211</width>
-        <height>41</height>
+        <x>630</x>
+        <y>60</y>
+        <width>361</width>
+        <height>51</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="plainText">
        <string>Retrieve Saved Logins</string>
@@ -750,10 +922,18 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>120</y>
-        <width>161</width>
-        <height>31</height>
+        <y>70</y>
+        <width>201</width>
+        <height>41</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="plainText">
        <string>Selected a cipher:</string>
@@ -763,8 +943,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <property name="geometry">
        <rect>
         <x>270</x>
-        <y>120</y>
-        <width>141</width>
+        <y>70</y>
+        <width>131</width>
         <height>41</height>
        </rect>
       </property>
@@ -777,10 +957,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPushButton" name="RetrieveBackBTN">
       <property name="geometry">
        <rect>
-        <x>1030</x>
-        <y>530</y>
-        <width>89</width>
-        <height>25</height>
+        <x>860</x>
+        <y>520</y>
+        <width>171</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="text">
@@ -790,10 +970,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPushButton" name="RetrieveGetBTN">
       <property name="geometry">
        <rect>
-        <x>920</x>
-        <y>530</y>
-        <width>89</width>
-        <height>25</height>
+        <x>630</x>
+        <y>520</y>
+        <width>171</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="text">
@@ -803,11 +983,14 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QTextEdit" name="RetrieveTXT">
       <property name="geometry">
        <rect>
-        <x>710</x>
-        <y>50</y>
+        <x>630</x>
+        <y>110</y>
         <width>361</width>
         <height>331</height>
        </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="html">
        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -826,7 +1009,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <property name="geometry">
        <rect>
         <x>330</x>
-        <y>90</y>
+        <y>110</y>
         <width>121</width>
         <height>51</height>
        </rect>
@@ -840,11 +1023,19 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPlainTextEdit" name="DeleteBanner">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>20</y>
+        <x>570</x>
+        <y>110</y>
         <width>321</width>
         <height>41</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="plainText">
        <string>Delete a Cipher</string>
@@ -853,10 +1044,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPushButton" name="DeleteBTN_2">
       <property name="geometry">
        <rect>
-        <x>930</x>
-        <y>520</y>
-        <width>89</width>
-        <height>25</height>
+        <x>670</x>
+        <y>500</y>
+        <width>171</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="text">
@@ -866,10 +1057,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPushButton" name="DeleteBack">
       <property name="geometry">
        <rect>
-        <x>1050</x>
-        <y>520</y>
-        <width>89</width>
-        <height>25</height>
+        <x>880</x>
+        <y>500</y>
+        <width>171</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="text">
@@ -879,11 +1070,14 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QTextEdit" name="DeleteDesc">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>90</y>
+        <x>570</x>
+        <y>160</y>
         <width>261</width>
         <height>91</height>
        </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="html">
        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -893,7 +1087,28 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Select which service to remove. Note that this cannot be undone. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Note that this cannot be undone. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="plainTextEdit_3">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>110</y>
+        <width>251</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="plainText">
+       <string>Select a service login to remove</string>
       </property>
      </widget>
     </widget>
@@ -901,41 +1116,43 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPlainTextEdit" name="EncryptFileDesc">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>20</y>
+        <x>660</x>
+        <y>130</y>
         <width>291</width>
         <height>91</height>
        </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="readOnly">
        <bool>true</bool>
       </property>
       <property name="plainText">
-       <string>Encrypt a file. Ensure the content of this text file are located in the current directories plaintext.txt file.
-
-Enter your key:</string>
+       <string>Copy and paste the text you want to encrypt into 'plaintext.txt'.
+</string>
       </property>
      </widget>
      <widget class="QPlainTextEdit" name="EncryptFileKey">
       <property name="geometry">
        <rect>
-        <x>360</x>
-        <y>20</y>
-        <width>291</width>
-        <height>91</height>
+        <x>250</x>
+        <y>140</y>
+        <width>151</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="plainText">
-       <string>key</string>
+       <string>Key</string>
       </property>
      </widget>
      <widget class="QPushButton" name="EncryptFileBTN_2">
       <property name="geometry">
        <rect>
-        <x>860</x>
-        <y>520</y>
-        <width>89</width>
-        <height>25</height>
+        <x>660</x>
+        <y>510</y>
+        <width>171</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="text">
@@ -945,14 +1162,56 @@ Enter your key:</string>
      <widget class="QPushButton" name="EncryptFileBack">
       <property name="geometry">
        <rect>
-        <x>990</x>
-        <y>520</y>
-        <width>89</width>
-        <height>25</height>
+        <x>870</x>
+        <y>510</y>
+        <width>171</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="text">
        <string>Back</string>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="plainTextEdit_4">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>140</y>
+        <width>181</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="plainText">
+       <string>Enter your Key</string>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="plainTextEdit_5">
+      <property name="geometry">
+       <rect>
+        <x>660</x>
+        <y>70</y>
+        <width>301</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="plainText">
+       <string>Encrypt a File</string>
       </property>
      </widget>
     </widget>
@@ -960,28 +1219,30 @@ Enter your key:</string>
      <widget class="QPlainTextEdit" name="DecryptDesc">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>20</y>
+        <x>640</x>
+        <y>140</y>
         <width>291</width>
         <height>91</height>
        </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="readOnly">
        <bool>true</bool>
       </property>
       <property name="plainText">
-       <string>Decrypt a file. Ensure the content of this text file are located in the current directories ciphertext.txt file.
-
-Enter your key:</string>
+       <string>Copy and paste the contents of your ciphertext to 'ciphertext.txt'.
+</string>
       </property>
      </widget>
      <widget class="QPlainTextEdit" name="DecryptKey">
       <property name="geometry">
        <rect>
-        <x>370</x>
-        <y>20</y>
-        <width>291</width>
-        <height>91</height>
+        <x>260</x>
+        <y>130</y>
+        <width>161</width>
+        <height>41</height>
        </rect>
       </property>
       <property name="plainText">
@@ -991,10 +1252,10 @@ Enter your key:</string>
      <widget class="QPushButton" name="DecryptDecryptBTN">
       <property name="geometry">
        <rect>
-        <x>830</x>
+        <x>650</x>
         <y>520</y>
-        <width>89</width>
-        <height>25</height>
+        <width>171</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="text">
@@ -1004,10 +1265,194 @@ Enter your key:</string>
      <widget class="QPushButton" name="DecryptBackBTN">
       <property name="geometry">
        <rect>
-        <x>990</x>
+        <x>880</x>
         <y>520</y>
-        <width>89</width>
-        <height>25</height>
+        <width>171</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Back</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="textEdit_2">
+      <property name="geometry">
+       <rect>
+        <x>640</x>
+        <y>80</y>
+        <width>231</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Decrypt a File&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="plainTextEdit_6">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>130</y>
+        <width>181</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="plainText">
+       <string>Enter your Key</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_6">
+     <widget class="QTextEdit" name="textEdit_3">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>361</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:22pt;&quot;&gt;About&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="Line" name="bannerLine_2">
+      <property name="geometry">
+       <rect>
+        <x>-40</x>
+        <y>70</y>
+        <width>1241</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="textEdit_4">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>100</y>
+        <width>361</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;What is Click&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="plainTextEdit_7">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>140</y>
+        <width>1101</width>
+        <height>191</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="plainText">
+       <string>How many websites do you visit. Out of those, how many require a login. How many passwords are locked up inside your head, or even worse, written on pen and paper? Gone are the days of this archaic and dangerous practice. Click is a password manager that allows you to save all your passwords under one master password.
+
+First of all, without your master password, the content of this application is just garage. All your data is stored in a safely encrypted manner. You can even choose the encryption algorithm to do this! Only your master password can decrypt your personal information. The best part is that we don't even store your master password, only the hash! This means that if someone got their hands on ALL saved data, without you giving them the master password, it is useless.
+
+Additionally, you can choose to encrypt single files with a key of your choice. 
+</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="textEdit_5">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>350</y>
+        <width>361</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="html">
+       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;How is This Possible&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="plainTextEdit_8">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>410</y>
+        <width>1101</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="plainText">
+       <string>The GUI is thanks to QT Framework. This is built as a widget application. User input collected with the GUI is sent to the User class which decides what to do with it. If something needs to be encrypted or decrypted, it will call upon the underlying (and personally implemented) encryption algorithms. If some data needs to be stored, changed, or retrieved, it will communicate with the SQLite3 database to get that done. </string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="DecryptBackBTN_2">
+      <property name="geometry">
+       <rect>
+        <x>930</x>
+        <y>550</y>
+        <width>171</width>
+        <height>51</height>
        </rect>
       </property>
       <property name="text">
@@ -1016,14 +1461,52 @@ Enter your key:</string>
      </widget>
     </widget>
    </widget>
+   <widget class="QPushButton" name="AboutBTN">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>20</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>About</string>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="Line" name="bannerLine">
+    <property name="geometry">
+     <rect>
+      <x>-10</x>
+      <y>60</y>
+      <width>1031</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
    <widget class="QPlainTextEdit" name="LogoBannerTXT">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
-      <width>101</width>
-      <height>31</height>
+      <y>0</y>
+      <width>221</width>
+      <height>51</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>24</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::VLine</enum>
     </property>
     <property name="readOnly">
      <bool>true</bool>
@@ -1032,30 +1515,48 @@ Enter your key:</string>
      <string>Click</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="AboutBTN">
+   <widget class="QPlainTextEdit" name="LogoBannerTXT_2">
     <property name="geometry">
      <rect>
-      <x>1060</x>
-      <y>10</y>
-      <width>89</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>About</string>
-    </property>
-   </widget>
-   <widget class="Line" name="bannerLine">
-    <property name="geometry">
-     <rect>
-      <x>-10</x>
-      <y>30</y>
-      <width>1041</width>
+      <x>10</x>
+      <y>40</y>
+      <width>361</width>
       <height>31</height>
      </rect>
     </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::VLine</enum>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+    <property name="plainText">
+     <string>Password Manager and Encryption Service</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="AboutBTN_2">
+    <property name="geometry">
+     <rect>
+      <x>1020</x>
+      <y>20</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Log In</string>
     </property>
    </widget>
   </widget>

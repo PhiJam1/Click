@@ -37,6 +37,7 @@ void MainWindow::on_LoginBTN_clicked() {
     Login(username.toStdString(), password.toStdString());
     if (user != nullptr) {
         ui->Login_Page->setCurrentIndex(2);
+        ui->AboutBTN_2->setText("Log Out");
     }
 
 }
@@ -236,5 +237,27 @@ void MainWindow::on_DecryptDecryptBTN_clicked()
 {
     std::string key = ui->DecryptKey->toPlainText().toStdString();
     ui->DecryptDesc->appendPlainText(advancedXorDecryptionFile(key) ? "Success" : "There was an error");
+}
+
+
+void MainWindow::on_DecryptBackBTN_2_clicked()
+{
+    ui->Login_Page->setCurrentIndex(user == nullptr ? 1 : 2);
+}
+
+
+void MainWindow::on_AboutBTN_clicked()
+{
+    ui->Login_Page->setCurrentIndex(8);
+}
+
+
+void MainWindow::on_AboutBTN_2_clicked()
+{
+    if (user != nullptr) {
+        ui->AboutBTN_2->setText("Log in");
+        user = nullptr;
+    }
+    ui->Login_Page->setCurrentIndex(1);
 }
 

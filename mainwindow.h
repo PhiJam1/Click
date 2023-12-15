@@ -60,6 +60,12 @@ private slots:
 
     void on_DecryptDecryptBTN_clicked();
 
+    void on_DecryptBackBTN_2_clicked();
+
+    void on_AboutBTN_clicked();
+
+    void on_AboutBTN_2_clicked();
+
 private:
     Ui::MainWindow *ui;
 
