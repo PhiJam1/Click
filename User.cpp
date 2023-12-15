@@ -152,29 +152,3 @@ void User::DeleteData(std::string name) {
     this->SaveUserData();
 }
 
-
-
-void User::EncryptFile() {
-    std::string plaintext_filename;
-    std::string key;
-    // get the file with the plain text
-    std::cout << "File name/path: ";
-    std::cin >> plaintext_filename;
-    std::cout << "Key: ";
-    std::cin >> key;
-    advancedXorEncryptionFile(plaintext_filename, key);
-    std::cout << "Ciphertext written to 'ciphertext.txt'\n";
-}
-
-void User::DecryptFile() {
-    std::string ciphertext_filename;
-    std::string key;
-    // get the file with the plain text
-    std::cout << "File name/path: ";
-    std::cin >> ciphertext_filename;
-    std::cout << "Key: ";
-    std::cin >> key;
-    advancedXorDecryptionFile(ciphertext_filename, key);
-    std::cout << "plaintext written to 'plaintext.txt'\n";
-}
-

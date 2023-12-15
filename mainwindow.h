@@ -48,6 +48,18 @@ private slots:
 
     void on_DeleteBTN_2_clicked();
 
+    void on_EncryptFileBack_clicked();
+
+    void on_EncryptFileBTN_2_clicked();
+
+    void on_EncryptFileBTN_clicked();
+
+    void on_DecryptBackBTN_clicked();
+
+    void on_DecryptFileBTN_clicked();
+
+    void on_DecryptDecryptBTN_clicked();
+
 private:
     Ui::MainWindow *ui;
 

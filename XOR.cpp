@@ -86,22 +86,23 @@ std::string advancedXorEncryptionPassword(std::string plaintext, std::string key
     return ciphertext;
 }
 
-void advancedXorEncryptionFile(std::string plaintextFileName, std::string key) {
+bool advancedXorEncryptionFile(std::string key) {
     //open plaintext file
     std::ifstream plaintextFile;
-    plaintextFile.open(plaintextFileName);
+    plaintextFile.open("../ClickGUI/plaintext.txt");
 
     if (!plaintextFile.is_open()) {
         std::cout << "Plaintext file could not be opened\n";
-        return;
+        return false;
     }
 
     //Open cipher text file
     std::ofstream ciphertextFile;
-    ciphertextFile.open("ciphertext.txt");
+    ciphertextFile.open("../ClickGUI/ciphertext.txt");
 
     if (!ciphertextFile.is_open()) {
         std::cout << "Error writing data\n";
+        return false;
     }
 
     std::cout << "Encrypting ..." << std::endl;
@@ -120,27 +121,28 @@ void advancedXorEncryptionFile(std::string plaintextFileName, std::string key) {
     plaintextFile.close();
 
     std::cout << "Data have been saved to 'ciphertext.txt'" << std::endl;
+    return true;
 }
 
 
 
-void advancedXorDecryptionFile(std::string ciphertextFileName, std::string key) {
+bool advancedXorDecryptionFile(std::string key) {
     //open encrypted file for reading
     std::ifstream cipherFile;
-    cipherFile.open(ciphertextFileName);
+    cipherFile.open("../ClickGUI/ciphertext.txt");
 
     if (cipherFile.fail()) {
         //file could not be opened for reading
         std::cout << "Ciphertext file could not be opened\n";
-        return;
+        return false;
     }
 
     std::ofstream plainFile;
-    plainFile.open("plaintext.txt");
+    plainFile.open("../ClickGUI/plaintext.txt");
     if (plainFile.fail()) {
         //File could not be opened for writing
         std::cout << "Plaintext file could not be opened\n";
-        return;
+        return false;
     }
 
     std::cout << "Decrypting data... " << std::endl;
@@ -158,6 +160,7 @@ void advancedXorDecryptionFile(std::string ciphertextFileName, std::string key) 
     cipherFile.close();
 
     std::cout << "Data have been saved to 'plaintext.txt'" << std::endl;
+    return true;
 }
 
 

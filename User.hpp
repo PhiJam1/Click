@@ -49,10 +49,6 @@ public:
     std::pair<std::string, std::string> RetrievePassword(std::string serviceName);
 
     void DeleteData(std::string name);
-
-    void EncryptFile();
-
-    void DecryptFile();
 };
 
 #endif

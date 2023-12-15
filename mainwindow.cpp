@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-
+#include "XOR.hpp"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -158,6 +158,9 @@ void MainWindow::on_RetrieveBackBTN_clicked()
 void MainWindow::on_RetrieveGetBTN_clicked()
 {
     std::string serviceName = ui->RetrieveSelectDrop->currentText().toStdString();
+    if (serviceName == "None") {
+        return;
+    }
     std::pair<std::string, std::string> cred = user->RetrievePassword(serviceName);
     ui->RetrieveTXT->setPlainText(QString::fromStdString(serviceName));
     std::string buff = "Username: " + cred.first;
@@ -195,5 +198,43 @@ void MainWindow::on_DeleteBTN_2_clicked()
     user->DeleteData(name);
     ui->DeleteDesc->append("Poof, gone...");
     ui->DeleteDropDown->removeItem(ui->DeleteDropDown->currentIndex());
+}
+
+
+void MainWindow::on_EncryptFileBack_clicked()
+{
+    ui->Login_Page->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_EncryptFileBTN_2_clicked()
+{
+    std::string key = ui->EncryptFileKey->toPlainText().toStdString();
+    ui->EncryptFileDesc->appendPlainText(advancedXorEncryptionFile(key) ? "Success" : "There was an error");
+}
+
+
+void MainWindow::on_EncryptFileBTN_clicked()
+{
+    ui->Login_Page->setCurrentIndex(6);
+}
+
+
+void MainWindow::on_DecryptBackBTN_clicked()
+{
+    ui->Login_Page->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_DecryptFileBTN_clicked()
+{
+    ui->Login_Page->setCurrentIndex(7);
+}
+
+
+void MainWindow::on_DecryptDecryptBTN_clicked()
+{
+    std::string key = ui->DecryptKey->toPlainText().toStdString();
+    ui->DecryptDesc->appendPlainText(advancedXorDecryptionFile(key) ? "Success" : "There was an error");
 }
 
