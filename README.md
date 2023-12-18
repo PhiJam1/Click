@@ -18,3 +18,23 @@ I started this project without a GUI. I wrote all of the backend encryption algo
 
 <img width="767" alt="image" src="https://github.com/PhiJam1/ClickGUI/assets/79670114/0429114d-c79a-47ab-8adf-13eb85e1119e">
 
+
+#### Login Page
+![image](https://github.com/PhiJam1/ClickGUI/assets/79670114/30a59abb-250a-416b-bedd-df4afeb1e908)
+#### Sign Up Page
+![image](https://github.com/PhiJam1/ClickGUI/assets/79670114/1bca9ddb-a7f5-4ed6-9621-0a0d800843f7)
+#### Create Cipher Page
+![image](https://github.com/PhiJam1/ClickGUI/assets/79670114/a8b23572-59c8-462c-824d-fb3b45c06923)
+#### Retrieve Cipher Page
+![image](https://github.com/PhiJam1/ClickGUI/assets/79670114/6eecfe05-451a-4a0e-b233-6177b541015a)
+
+![image](https://github.com/PhiJam1/ClickGUI/assets/79670114/7bbd683f-b0a9-43d0-82b3-7686544bcf5a)
+![image](https://github.com/PhiJam1/ClickGUI/assets/79670114/662f9986-88c9-49a9-826e-47e59e8a7a40)
+
+![image](https://github.com/PhiJam1/ClickGUI/assets/79670114/179bd4e2-7355-4ea4-b2d9-0b4ced0aff93)
+
+![image](https://github.com/PhiJam1/ClickGUI/assets/79670114/b84ffb21-e2cd-405b-89bb-a1ab795ed024)
+
+![image](https://github.com/PhiJam1/ClickGUI/assets/79670114/617bba8e-4d87-4fd7-a483-d649d05cd1dc)
+
+
