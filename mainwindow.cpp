@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include "XOR.hpp"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -260,4 +261,3 @@ void MainWindow::on_AboutBTN_2_clicked()
     }
     ui->Login_Page->setCurrentIndex(1);
 }
-

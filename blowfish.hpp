@@ -2,6 +2,10 @@
 #define BLOWFISH_HPP
 #include <string>
 
+/*
+ * The following is an implementation of blowfish
+ * TODO: brief explanation of how it works.
+ */
 
 std::string f(std::string plaintext);
 

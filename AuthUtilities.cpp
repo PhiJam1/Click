@@ -7,11 +7,15 @@
 #include <ios>
 #include <bits/stdc++.h>
 #include <sqlite3.h>
+#include </usr/include/python3.12/Python.h>
 
 #include "User.hpp"
 #include "bcrypt.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "AuthUtilities.hpp"
+#define PY_ERROR_MSG "Error with python function\n"
+
 
 
 
@@ -48,9 +52,79 @@ int GetSalt(void* data, int argc, char** argv, char** /* azColName */) {
  * if the password+salt is valid.
 */
 int CheckPassword(void* data, int argc, char** argv, char** /* azColName */) {
-    auto& [password, salt] = *static_cast<std::pair<std::string, std::string> *>(data);
+    auto& [known_hash, salt] = *static_cast<std::pair<std::string, std::string> *>(data);
     // argv[0] is the password hash.
-    return !bcrypt::validatePassword(password + salt, argv[0]);
+
+
+    // Tells the linker to check the current directory for py files
+    setenv("PYTHONPATH","./../../",1);      // Set as needed
+    Py_Initialize();
+    PyObject * name = nullptr;              // The name of the python file
+    PyObject * load_module = nullptr;       // Load in the file
+    PyObject * func = nullptr;              // The name of the function
+    PyObject * callfunc = nullptr;          // Calls the function and hold return value
+    PyObject * args = nullptr;              // arguements for the function
+
+    name = PyUnicode_FromString((char*)"AuthUtils");
+    if (name == nullptr) {
+        std::cout << PY_ERROR_MSG;
+        Py_Finalize();
+        return 0;
+    }
+
+
+    load_module = PyImport_Import(name);
+    if (load_module == nullptr) {
+        std::cout << PY_ERROR_MSG;
+        Py_DECREF(name);
+        Py_Finalize();
+        return 0;
+    }
+
+    // The actual function we need
+    func = PyObject_GetAttrString(load_module, (char*)"Verify_Password");
+    if (func == nullptr) {
+        std::cout << PY_ERROR_MSG;
+        Py_DECREF(load_module);
+        Py_DECREF(name);
+        return 0;
+    }
+
+    args = PyTuple_Pack(2, PyUnicode_FromString(known_hash.c_str()), PyUnicode_FromString(argv[0]));
+    if (args == nullptr) {
+        std::cout << PY_ERROR_MSG;
+        Py_DECREF(func);
+        Py_DECREF(load_module);
+        Py_DECREF(name);
+        return 0;
+    }
+
+    // This calls  the  function
+    callfunc = PyObject_CallObject(func, args);
+    if (callfunc == nullptr) {
+        std::cout << PY_ERROR_MSG;
+        Py_DECREF(load_module);
+        Py_DECREF(func);
+        Py_DECREF(name);
+        return 0;
+    }
+
+    const char* hash = PyUnicode_AsUTF8(PyList_GetItem(callfunc, 0));
+    std::cout << "ret value : " << hash << std::endl << std::flush;
+  // Free all memory
+    Py_DECREF(args);
+    Py_DECREF(callfunc);
+    Py_DECREF(func);
+    Py_DECREF(load_module);
+    Py_DECREF(name);
+    callfunc = nullptr;
+    func = nullptr;
+    load_module = nullptr;
+    name = nullptr;
+    args = nullptr;
+
+    Py_Finalize();
+    return false;
 }
 
 
@@ -125,7 +199,7 @@ bool MainWindow::NewAccount(std::string first_name, std::string last_name, std::
         return false;
     }
 
-    // create a table if non exists
+    // create a table if none exists
     const char * create_table = "CREATE TABLE IF NOT EXISTS credentials (email TEXT PRIMARY KEY, password_hash TEXT, salt TEXT, first_name TEXT, last_name TEXT);";
     rc = sqlite3_exec(db, create_table, 0, 0, 0);
     if (rc != SQLITE_OK) {
@@ -136,7 +210,6 @@ bool MainWindow::NewAccount(std::string first_name, std::string last_name, std::
 
     // user information
     std::string salt = " ";
-    std::string hash = " ";
 
     // get the email all lowercase
     std::transform(email.begin(), email.end(), email.begin(), [](unsigned char c){ return std::tolower(c); });
@@ -157,8 +230,8 @@ bool MainWindow::NewAccount(std::string first_name, std::string last_name, std::
         return false;
     }
 
-    salt = GenSalt();
-    hash = bcrypt::generateHash(password + salt);
+    std::string hash = "";
+    GetSaltAndHash(hash, password.c_str());
 
     // Save the hash, salt, and other user data
     std::string insert = "INSERT INTO credentials (email, password_hash, salt, first_name, last_name) VALUES ('" + email + "', " +
@@ -241,4 +314,80 @@ std::string MainWindow::GenSalt() {
         salt += (char) r;
     }
     return salt;
+}
+
+
+
+void GetSaltAndHash(std::string& hash, const char * password) {
+
+    // Tells the linker to check the current directory for py files
+    setenv("PYTHONPATH","./../../",1);      // Set as needed
+    Py_Initialize();
+    PyObject * name = nullptr;              // The name of the python file
+    PyObject * load_module = nullptr;       // Load in the file
+    PyObject * func = nullptr;              // The name of the function
+    PyObject * callfunc = nullptr;          // Calls the function and hold return value
+    PyObject * args = nullptr;              // arguements for the function
+
+    name = PyUnicode_FromString((char*)"AuthUtils");
+    if (name == nullptr) {
+        std::cout << PY_ERROR_MSG;
+        Py_Finalize();
+        return;
+    }
+
+
+    load_module = PyImport_Import(name);
+    if (load_module == nullptr) {
+        std::cout << PY_ERROR_MSG;
+        Py_DECREF(name);
+        Py_Finalize();
+        return;
+    }
+
+    // The actual function we need
+    func = PyObject_GetAttrString(load_module, (char*)"Register_Password");
+    if (func == nullptr) {
+        std::cout << PY_ERROR_MSG;
+        Py_DECREF(load_module);
+        Py_DECREF(name);
+        return;
+    }
+
+    args = PyTuple_Pack(1, PyUnicode_FromString(password));
+    if (args == nullptr) {
+        std::cout << PY_ERROR_MSG;
+        Py_DECREF(func);
+        Py_DECREF(load_module);
+        Py_DECREF(name);
+        return;
+    }
+
+    // This calls  the  function
+    callfunc = PyObject_CallObject(func, args);
+    if (callfunc == nullptr) {
+        std::cout << PY_ERROR_MSG;
+        Py_DECREF(load_module);
+        Py_DECREF(func);
+        Py_DECREF(name);
+        return;
+    }
+
+
+    hash = PyUnicode_AsUTF8(PyList_GetItem(callfunc, 0));
+    std::cout << "made it \n\n" << std::flush;
+
+    // Free all memory
+    Py_DECREF(args);
+    Py_DECREF(callfunc);
+    Py_DECREF(func);
+    Py_DECREF(load_module);
+    Py_DECREF(name);
+    callfunc = nullptr;
+    func = nullptr;
+    load_module = nullptr;
+    name = nullptr;
+    args = nullptr;
+
+    Py_Finalize();
 }

@@ -78,6 +78,7 @@ private:
     // helper function
     std::string GenSalt();
     bool ValidPassword(std::string password);
+    void TestingPY();
 };
 
 // non member callback functions

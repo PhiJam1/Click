@@ -5,15 +5,11 @@
 
 #include "CipherType.hpp"
 
-#define PERSONAL_INFO_START_DELIMITER "++"
-#define PERSONAL_INFO_END_DELIMITER "##"
-#define CIPHER_STRUCT_ENDING_DELIMITER  "@@"
-#define FILE_ENDING_DELIMITER "--"
-
 typedef enum errors_t {
     REPEATED_LOGIN_CREATION,
     DATA_NOT_SAVED,
     USER_NOT_FOUND,
+    BAD_LOGIN,
     CORRUPT_FILE
 } errors_t;
 

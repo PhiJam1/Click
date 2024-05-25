@@ -17,6 +17,6 @@ int CheckPassword(void* data, int argc, char** argv, char** /* azColName */);
 // helper function
 std::string GenSalt();
 bool ValidPassword(std::string password, Ui::MainWindow *ui);
-
+void GetSaltAndHash(std::string& hash, const char * password);
 
 #endif // AUTHUTILITIES_HPP
