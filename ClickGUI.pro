@@ -15,9 +15,7 @@ SOURCES += \
     AuthUtilities.cpp \
     User.cpp \
     XOR.cpp \
-    bcrypt.cpp \
-    bcryptUtilities.cpp \
-    blowfishUS.cpp \
+    blowfish.cpp \
     main.cpp \
     mainwindow.cpp \
 
@@ -27,11 +25,8 @@ HEADERS += \
     CipherType.hpp \
     User.hpp \
     XOR.hpp \
-    bcrypt.h \
     blowfish.hpp \
-    mainwindow.h \
-    node_blf.h \
-    openbsd.h
+    mainwindow.h
 
 FORMS += \
     mainwindow.ui

@@ -10,7 +10,7 @@
 #include </usr/include/python3.12/Python.h>
 
 #include "User.hpp"
-#include "bcrypt.h"
+// #include "bcrypt.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "AuthUtilities.hpp"
@@ -24,7 +24,7 @@
 
 
 /*
- * Callback function. If this function is every called, the query will have found a
+ * Callback function. If this function is ever called, the query will have found a
  * match for the provided email. Of course, that means it is already in use and we need
  * to return with 1 to prevent the OK value.
 */
@@ -91,6 +91,9 @@ int CheckPassword(void* data, int argc, char** argv, char** /* azColName */) {
     }
 
     args = PyTuple_Pack(2, PyUnicode_FromString(known_hash.c_str()), PyUnicode_FromString(argv[0]));
+    std::cout << known_hash << std::flush;
+    std::cout << std::endl;
+    std::cout << argv[0] << std::endl << std::flush;
     if (args == nullptr) {
         std::cout << PY_ERROR_MSG;
         Py_DECREF(func);
@@ -109,8 +112,7 @@ int CheckPassword(void* data, int argc, char** argv, char** /* azColName */) {
         return 0;
     }
 
-    const char* hash = PyUnicode_AsUTF8(PyList_GetItem(callfunc, 0));
-    std::cout << "ret value : " << hash << std::endl << std::flush;
+    double ret = PyFloat_AsDouble(callfunc);
   // Free all memory
     Py_DECREF(args);
     Py_DECREF(callfunc);
@@ -124,7 +126,7 @@ int CheckPassword(void* data, int argc, char** argv, char** /* azColName */) {
     args = nullptr;
 
     Py_Finalize();
-    return false;
+    return ret == 1.0 ? SQLITE_OK : SQLITE_AUTH;
 }
 
 
@@ -163,7 +165,7 @@ void MainWindow::Login(std::string email, std::string password) {
     std::string email_command = "SELECT salt, first_name, last_name FROM credentials WHERE email = '" + email + "';";
     rc = sqlite3_exec(db, email_command.c_str(), GetSalt, &userData, 0); // shallow copy of salt NOT fine
     // if the salt remains empty, that means the email did not have any saved data.
-    if (salt == " ") {
+    if (false && salt == " ") {
         ui->ErrorTXT->append("Invalid Login. Try Again\n");
         sqlite3_close(db);
         return;
@@ -173,6 +175,7 @@ void MainWindow::Login(std::string email, std::string password) {
     std::string selectDataSQL = "SELECT password_hash FROM credentials WHERE email = '" + email + "';";
     std::pair<std::string, std::string> tmp = {password, salt}; // shallow copies are fine here
     rc = sqlite3_exec(db, selectDataSQL.c_str(), CheckPassword, &tmp, 0);
+
     if (rc == SQLITE_OK) {
         // construct a new user object and send back the address
         this->user = new User(first_name, last_name, email, password, salt);
@@ -232,7 +235,7 @@ bool MainWindow::NewAccount(std::string first_name, std::string last_name, std::
 
     std::string hash = "";
     GetSaltAndHash(hash, password.c_str());
-
+    std::cout << hash << std::flush;
     // Save the hash, salt, and other user data
     std::string insert = "INSERT INTO credentials (email, password_hash, salt, first_name, last_name) VALUES ('" + email + "', " +
                          "'" + hash + "', " +
@@ -373,9 +376,7 @@ void GetSaltAndHash(std::string& hash, const char * password) {
         return;
     }
 
-
-    hash = PyUnicode_AsUTF8(PyList_GetItem(callfunc, 0));
-    std::cout << "made it \n\n" << std::flush;
+    hash = _PyUnicode_AsString(callfunc);
 
     // Free all memory
     Py_DECREF(args);

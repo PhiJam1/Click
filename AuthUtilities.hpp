@@ -5,7 +5,7 @@
 #include "User.hpp"
 #include "mainwindow.h"
 
-// function to create accounts and log users in
+// functions to create accounts and log users in
 User* Login(bool new_user);
 User* NewAccount(Ui::MainWindow *ui);
 
@@ -18,5 +18,4 @@ int CheckPassword(void* data, int argc, char** argv, char** /* azColName */);
 std::string GenSalt();
 bool ValidPassword(std::string password, Ui::MainWindow *ui);
 void GetSaltAndHash(std::string& hash, const char * password);
-
 #endif // AUTHUTILITIES_HPP
