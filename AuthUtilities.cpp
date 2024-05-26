@@ -62,7 +62,7 @@ int CheckPassword(void* data, int argc, char** argv, char** /* azColName */) {
     PyObject * name = nullptr;              // The name of the python file
     PyObject * load_module = nullptr;       // Load in the file
     PyObject * func = nullptr;              // The name of the function
-    PyObject * callfunc = nullptr;          // Calls the function and hold return value
+    PyObject * callfunc = nullptr;          // Calls the function and holds return value
     PyObject * args = nullptr;              // arguements for the function
 
     name = PyUnicode_FromString((char*)"AuthUtils");

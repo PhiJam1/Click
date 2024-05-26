@@ -6,35 +6,10 @@
 
 #include "XOR.hpp"
 
-/* Password functions */
-
-std::string xorEncryptPassword(std::string plaintext, std::string key) {
-    char c;
-    std::string ciphertext = "";
-    //Xors each character in plaintext with a character in key
-    for (int i = 0; i < plaintext.size(); i++) {
-        c = plaintext.at(i);
-        int x = c ^ key.at(i % key.length());
-        ciphertext += (std::to_string(c ^ key.at(i % key.length())) + " ");
-    }
-    return ciphertext;
-}
-
-std::string xorDecryptPassword(std::vector<int> ciphertext, std::string key) {
-
-    std::string plaintext = "";
-    for (int i = 0; i < ciphertext.size(); i++) {
-        char c = key[i % key.length()];
-        //stoi() converts the string to an ascii integer
-        c ^= ciphertext.at(i);
-        plaintext += c;
-    }
-    return plaintext;
-}
 
 std::string advancedXorDecryptionPassword(std::vector<int> ciphertext, std::string key) {
     std::string plaintext = "";
-    for (int i = 0; i < ciphertext.size(); i++) {
+    for (unsigned long i = 0; i < ciphertext.size(); i++) {
         char c = key[i % key.length()];
         c ^= ciphertext.at(i);
         plaintext += c;
@@ -47,7 +22,7 @@ std::string advancedXorEncryptionPassword(std::string plaintext, std::string key
     std::string ciphertext = "";
 
     //Xors each character in plaintext with a character in key
-    for (int i = 0; i < plaintext.size(); i++) {
+    for (unsigned long i = 0; i < plaintext.size(); i++) {
         ciphertext += std::to_string((plaintext.at(i) ^ key.at(i % key.length()))) + " ";
         key[i % key.length()] = ((key[i % key.length()] + 1) % 127) + 1;
     }
@@ -79,7 +54,6 @@ bool advancedXorEncryptionFile(std::string key) {
     //Xors each character in plaintext with a character in key
     for (int i = 0; plaintextFile.get(c); i++) {
         ciphertextFile << (c ^ key.at(i % key.length())) << " ";
-        int x = ((key[i % key.length()] + 1) % 127) + 1;
         key[i % key.length()] = ((key[i % key.length()] + 1) % 127) + 1;
         //std::cout << key << " - > " << x << std::endl;
     }
@@ -129,4 +103,30 @@ bool advancedXorDecryptionFile(std::string key) {
 
     std::cout << "Data have been saved to 'plaintext.txt'" << std::endl;
     return true;
+
+}
+
+// The following two functions are out of date. They are very basic
+// xor ciphers that can be broken with a frequency analysis.
+std::string xorEncryptPassword(std::string plaintext, std::string key) {
+    char c;
+    std::string ciphertext = "";
+    // Xors each character in plaintext with a character in key
+    for (unsigned long i = 0; i < plaintext.size(); i++) {
+        c = plaintext.at(i);
+        ciphertext += (std::to_string(c ^ key.at(i % key.length())) + " ");
+    }
+    return ciphertext;
+}
+
+std::string xorDecryptPassword(std::vector<int> ciphertext, std::string key) {
+
+    std::string plaintext = "";
+    for (unsigned long i = 0; i < ciphertext.size(); i++) {
+        char c = key[i % key.length()];
+        // stoi() converts the string to an ascii integer
+        c ^= ciphertext.at(i);
+        plaintext += c;
+    }
+    return plaintext;
 }
