@@ -2,14 +2,19 @@
 #include "ui_mainwindow.h"
 
 #include "XOR.hpp"
-
+#include <QPixmap>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::Click)
 {
     ui->setupUi(this);
     // Note, index 0 -> sign up page, index 1 -> login page, index -> main page
     ui->Login_Page->setCurrentIndex(1);
+    QPixmap img("../../MainPageImg.png");
+    ui->LockIMG->setPixmap(img);
+
+    ui->LockIMGSignUp->setPixmap(img);
+
 }
 
 MainWindow::~MainWindow()
@@ -26,19 +31,19 @@ void MainWindow::on_LoginBTN_clicked() {
     QString password;
 
     // grab data from username and password field
-    username = ui->EmailEntry_3->toPlainText();
-    password = ui->PasswordEntry_2->toPlainText();
+    username = ui->EmailEntryLogin->toPlainText();
+    password = ui->PasswordLogin->toPlainText();
 
     // check for empty entries
     if (username == "" || password == "") {
-        ui->ErrorTXT->append("No field can be empty");
+        ui->MessagePane->append("No field can be empty");
         return;
     }
 
     Login(username.toStdString(), password.toStdString());
     if (user != nullptr) {
         ui->Login_Page->setCurrentIndex(2);
-        ui->AboutBTN_2->setText("Log Out");
+        ui->LogInBTN->setText("Log Out");
     }
 
 }
@@ -104,14 +109,14 @@ void MainWindow::on_CreateSaveBTN_clicked()
     QString password;
 
     // assign fields
-    serviceName = ui->CreateSN->toPlainText();
-    cipherType = ui->CreateCT->currentIndex();
-    username = ui->CreateUsername->toPlainText();
-    password = ui->CreatePassword->toPlainText();
+    serviceName = ui->CreateServiceNameEntry->toPlainText();
+    cipherType = ui->CreateCipherTypeEntry->currentIndex();
+    username = ui->CreateUsernameEntry->toPlainText();
+    password = ui->CreatePasswordEntry->toPlainText();
 
     // check for empty fields
     if (serviceName == "" || username == "" || password == "") {
-        ui->CreateTXT->append("No fields can be empty!");
+        ui->CreatePanel->append("No fields can be empty!");
         return;
     }
 
@@ -119,14 +124,14 @@ void MainWindow::on_CreateSaveBTN_clicked()
     std::vector<std::string> names = user->get_service_namees();
     for (unsigned long i = 0; i < names.size(); i++) {
         if (names.at(i) == serviceName.toStdString()) {
-            ui->CreateTXT->append("You already have a cipher saved for this service.!");
+            ui->CreatePanel->append("You already have a cipher saved for this service.!");
             return;
         }
     }
 
     // now save the cipher
     user->CreateCipher(serviceName.toStdString(), username.toStdString(), password.toStdString(), cipherType);
-    ui->CreateTXT->append("Saved!");
+    ui->CreatePanel->append("Saved!");
 }
 
 
@@ -137,14 +142,14 @@ void MainWindow::on_RetrieiveBTN_clicked()
     std::cout << service_names.size() << std::endl;
 
     // clear anything currently in the drop down
-    ui->RetrieveSelectDrop->clear();
+    ui->RetrieveSelectEntry->clear();
 
     // add back the default value
-    ui->RetrieveSelectDrop->addItem("None");
+    ui->RetrieveSelectEntry->addItem("None");
 
     // populate the rest with the users saved logins
     for (unsigned long i = 0; i < service_names.size(); i++) {
-        ui->RetrieveSelectDrop->addItem(QString::fromStdString(service_names.at(i)));
+        ui->RetrieveSelectEntry->addItem(QString::fromStdString(service_names.at(i)));
     }
 
     ui->Login_Page->setCurrentIndex(4);
@@ -159,16 +164,16 @@ void MainWindow::on_RetrieveBackBTN_clicked()
 
 void MainWindow::on_RetrieveGetBTN_clicked()
 {
-    std::string serviceName = ui->RetrieveSelectDrop->currentText().toStdString();
+    std::string serviceName = ui->RetrieveSelectEntry->currentText().toStdString();
     if (serviceName == "None") {
         return;
     }
     std::pair<std::string, std::string> cred = user->RetrievePassword(serviceName);
-    ui->RetrieveTXT->setPlainText(QString::fromStdString(serviceName));
+    ui->RetrievePanel->setPlainText(QString::fromStdString(serviceName));
     std::string buff = "Username: " + cred.first;
-    ui->RetrieveTXT->append(QString::fromStdString(buff));
+    ui->RetrievePanel->append(QString::fromStdString(buff));
     buff = "Password: " + cred.second;
-    ui->RetrieveTXT->append(QString::fromStdString(buff));
+    ui->RetrievePanel->append(QString::fromStdString(buff));
 }
 
 
@@ -253,10 +258,10 @@ void MainWindow::on_AboutBTN_clicked()
 }
 
 
-void MainWindow::on_AboutBTN_2_clicked()
+void MainWindow::on_LogInBTN_clicked()
 {
     if (user != nullptr) {
-        ui->AboutBTN_2->setText("Log in");
+        ui->LogInBTN->setText("Log in");
         user = nullptr;
     }
     ui->Login_Page->setCurrentIndex(1);

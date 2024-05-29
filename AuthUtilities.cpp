@@ -154,8 +154,8 @@ void MainWindow::Login(std::string email, std::string password) {
     sqlite3* db;
     int rc = sqlite3_open("creds.db", &db);
     if (rc) {
-        ui->ErrorTXT->append("Cannot open database: ");
-        ui->ErrorTXT->append(sqlite3_errmsg(db));
+        ui->MessagePane->append("Cannot open database: ");
+        ui->MessagePane->append(sqlite3_errmsg(db));
         return;
     }
 
@@ -166,7 +166,7 @@ void MainWindow::Login(std::string email, std::string password) {
     rc = sqlite3_exec(db, email_command.c_str(), GetSalt, &userData, 0); // shallow copy of salt NOT fine
     // if the salt remains empty, that means the email did not have any saved data.
     if (false && salt == " ") {
-        ui->ErrorTXT->append("Invalid Login. Try Again\n");
+        ui->MessagePane->append("Invalid Login. Try Again\n");
         sqlite3_close(db);
         return;
     }
@@ -182,7 +182,7 @@ void MainWindow::Login(std::string email, std::string password) {
         sqlite3_close(db);
         return;
     }
-    ui->ErrorTXT->append("Invalid Login. Try Again\n");
+    ui->MessagePane->append("Invalid Login. Try Again\n");
     sqlite3_close(db);
 }
 

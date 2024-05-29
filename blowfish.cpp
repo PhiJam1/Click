@@ -5,6 +5,7 @@
 #include <sstream>
 
 #include "blowfish.hpp"
+
 // Substitution boxes each string is a 32 bit hexadecimal value.
 std::string S[4][256] = { {"d1310ba6", "98dfb5ac", "2ffd72db", "d01adfb7", "b8e1afed",
                           "6a267e96", "ba7c9045", "f12c7f99", "24a19947", "b3916cf7",
@@ -221,12 +222,14 @@ std::string P[] = { "243f6a88", "85a308d3", "13198a2e", "03707344", "a4093822",
                    "299f31d0", "082efa98", "ec4e6c89", "452821e6", "38d01377",
                    "be5466cf", "34e90c6c", "c0ac29b7", "c97c50dd", "3f84d5b5",
                    "b5470917", "9216d5d9", "8979fb1b" };
+
+// A copy of the p values to reset to after each encryption.
 std::string p[] = { "243f6a88", "85a308d3", "13198a2e", "03707344", "a4093822",
                    "299f31d0", "082efa98", "ec4e6c89", "452821e6", "38d01377",
                    "be5466cf", "34e90c6c", "c0ac29b7", "c97c50dd", "3f84d5b5",
                    "b5470917", "9216d5d9", "8979fb1b" };
 
-//function that will xor two string hex values
+// function that will xor two string hex values
 std::string XOR(std::string s1, std::string s2) {
     unsigned int j = stol(s1, 0, 16) ^ stol(s2, 0, 16);
     std::stringstream sstream;
@@ -245,7 +248,6 @@ std::string XOR(std::string s1, std::string s2) {
 void keyInit(std::string key) {
     for (int i = 0; i < 18; i++) {
         P[i] = XOR(P[i], key);
-        //std::cout << "Round " << (i + 1) << ": " << P[i] << std::endl;
     }
 }
 
@@ -255,6 +257,7 @@ void KeyCleanUp() {
     }
 }
 
+// Function to run the left half of the input through.
 std::string f(std::string left) {
     long b1 = stol(left.substr(0,2), 0, 16);
     long b2 = stol(left.substr(2,2), 0, 16);
@@ -277,8 +280,8 @@ std::string f(std::string left) {
     return result;
 }
 
-
-std::string encrypt(std::string plaintext, std::string key) {
+// Preforms each round of encryption
+std::string encrypt(std::string plaintext) {
     std::string left;
     std::string right;
     for (int i = 0; i < 16; i++) {
@@ -310,15 +313,17 @@ std::string encrypt(std::string plaintext, std::string key) {
     return left + right;
 
 }
-std::string decrypt(std::string plaintext, std::string key) {
+
+// Preforms each round of encryption
+std::string decrypt(std::string ciphertext) {
     std::string left;
     std::string right;
     for (int i = 17; i > 1; i--) {
         //do each round
 
         //set left and right
-        left = plaintext.substr(0, 8);
-        right = plaintext.substr(8, 8);
+        left = ciphertext.substr(0, 8);
+        right = ciphertext.substr(8, 8);
 
         //left xor with p[i]
         left = XOR(left, P[i]);
@@ -331,12 +336,12 @@ std::string decrypt(std::string plaintext, std::string key) {
         right = XOR(temp, right);
 
         //swap right and left
-        plaintext = right + left;
+        ciphertext = right + left;
 
 
     }
-    right = plaintext.substr(0, 8);
-    left = plaintext.substr(8, 8);
+    right = ciphertext.substr(0, 8);
+    left = ciphertext.substr(8, 8);
 
     right = XOR(right, P[1]);
     left = XOR(left, P[0]);
@@ -357,8 +362,8 @@ std::string EncryptDriverPassword(std::string plaintext, std::string key) {
     keyInit(key_hex);
     // loop around the hex string and operate on chuncks of 8 char
     // also, a hex string of strlen 16 = 64 bits = 8 bytes
-    for (int i = 0; i < plaintext_hex.size(); i += 16) {
-        ciphertext += encrypt(plaintext_hex.substr(i, 16), key_hex);
+    for (unsigned long i = 0; i < plaintext_hex.size(); i += 16) {
+        ciphertext += encrypt(plaintext_hex.substr(i, 16));
     }
     KeyCleanUp();
     return ciphertext;
@@ -369,8 +374,8 @@ std::string DecryptDriverPassword(std::string ciphertext, std::string key) {
     std::string key_hex = GetHexString(key);
     std::string plaintext = "";
     keyInit(key_hex);
-    for (int i = 0; i < ciphertext.size(); i += 16) {
-        plaintext += decrypt(ciphertext.substr(i, 16), key_hex);
+    for (unsigned long i = 0; i < ciphertext.size(); i += 16) {
+        plaintext += decrypt(ciphertext.substr(i, 16));
     }
     KeyCleanUp();
     // convert this hex to int to char
@@ -380,7 +385,7 @@ std::string DecryptDriverPassword(std::string ciphertext, std::string key) {
 
 std::string GetStrFromHex(std::string str) {
     std::string newString;
-    for(int i=0; i < str.length(); i+=2) {
+    for(unsigned long i = 0; i < str.length(); i+=2) {
         std::string byte = str.substr(i, 2);
         char c = (char) (int)strtol(byte.c_str(), nullptr, 16);
         newString += c;
@@ -389,18 +394,14 @@ std::string GetStrFromHex(std::string str) {
 }
 
 std::string GetHexString(std::string str) {
-    // convert the string into an int vector (int of each char)
-    // convert (and zero pad if needed) each index and concatancte into a string
-    // ^ ignore that
     std::string hex = "";
-    for (int i = 0; i < str.size(); i++) {
+    for (unsigned long i = 0; i < str.size(); i++) {
         int dec = (int) str.at(i);
         // now convert to hex and zero pad if needed
         std::stringstream sstream;
         sstream << std::hex << dec;
         // the zero padding isn't really ever going to be used
         hex += (sstream.str().size() == 1) ? "0" + sstream.str() : sstream.str();
-        //std::cout << hex << std::endl;
     }
     return hex;
 }

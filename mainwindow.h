@@ -8,7 +8,7 @@
 #define ERROR_TXT_HEADER_SINGUP_PAGE "Sign Up to use the service."
 QT_BEGIN_NAMESPACE
 namespace Ui {
-class MainWindow;
+class Click;
 }
 QT_END_NAMESPACE
 
@@ -64,10 +64,12 @@ private slots:
 
     void on_AboutBTN_clicked();
 
-    void on_AboutBTN_2_clicked();
+    // void on_LogInBTN_clicked();
+
+    void on_LogInBTN_clicked();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::Click *ui;
 
     User * user = nullptr;
 
