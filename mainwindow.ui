@@ -11,10 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Click Password Manager</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QStackedWidget" name="Login_Page">
+   <widget class="QStackedWidget" name="PageManager">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -33,7 +33,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="SignUpPage">
      <widget class="QGroupBox" name="SignUpBox">
@@ -650,7 +650,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
        </rect>
       </property>
       <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="lineWidth">
+       <number>2</number>
       </property>
       <property name="plainText">
        <string>How many websites do you visit. Out of those, how many require a login. How many passwords are locked up inside your head, or even worse, written on pen and paper? Gone are the days of this archaic and dangerous practice. Click is a password manager that allows you to save all your passwords under one master password.
@@ -660,7 +663,7 @@ First of all, without your master password, the content of this application is j
 </string>
       </property>
      </widget>
-     <widget class="QPlainTextEdit" name="LogoBannerTXT_4">
+     <widget class="QPlainTextEdit" name="AppDescription_2">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -733,7 +736,7 @@ First of all, without your master password, the content of this application is j
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="page">
+    <widget class="QWidget" name="NewCipherPage">
      <widget class="QTextEdit" name="CreatePanel">
       <property name="geometry">
        <rect>
@@ -1003,12 +1006,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="page_2">
+    <widget class="QWidget" name="RetrieveCipherPage">
      <widget class="QComboBox" name="RetrieveSelectEntry">
       <property name="geometry">
        <rect>
-        <x>270</x>
-        <y>70</y>
+        <x>280</x>
+        <y>90</y>
         <width>131</width>
         <height>41</height>
        </rect>
@@ -1022,8 +1025,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPushButton" name="RetrieveBackBTN">
       <property name="geometry">
        <rect>
-        <x>860</x>
-        <y>520</y>
+        <x>950</x>
+        <y>500</y>
         <width>171</width>
         <height>51</height>
        </rect>
@@ -1035,8 +1038,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPushButton" name="RetrieveGetBTN">
       <property name="geometry">
        <rect>
-        <x>630</x>
-        <y>520</y>
+        <x>730</x>
+        <y>500</y>
         <width>171</width>
         <height>51</height>
        </rect>
@@ -1048,10 +1051,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QTextEdit" name="RetrievePanel">
       <property name="geometry">
        <rect>
-        <x>630</x>
-        <y>120</y>
-        <width>361</width>
-        <height>331</height>
+        <x>610</x>
+        <y>140</y>
+        <width>421</width>
+        <height>251</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -1105,8 +1108,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QLabel" name="RetrieveCipherLB">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>70</y>
+        <x>60</x>
+        <y>90</y>
         <width>241</width>
         <height>41</height>
        </rect>
@@ -1124,7 +1127,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QLabel" name="RetrieveSavedLoginLB">
       <property name="geometry">
        <rect>
-        <x>630</x>
+        <x>610</x>
         <y>70</y>
         <width>381</width>
         <height>41</height>
@@ -1141,12 +1144,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="page_3">
+    <widget class="QWidget" name="DeleteCipherPage">
      <widget class="QComboBox" name="DeleteDropDown">
       <property name="geometry">
        <rect>
-        <x>330</x>
-        <y>110</y>
+        <x>280</x>
+        <y>90</y>
         <width>121</width>
         <height>51</height>
        </rect>
@@ -1160,7 +1163,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPushButton" name="DeleteBTN_2">
       <property name="geometry">
        <rect>
-        <x>670</x>
+        <x>730</x>
         <y>500</y>
         <width>171</width>
         <height>51</height>
@@ -1173,7 +1176,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPushButton" name="DeleteBack">
       <property name="geometry">
        <rect>
-        <x>880</x>
+        <x>950</x>
         <y>500</y>
         <width>171</width>
         <height>51</height>
@@ -1186,10 +1189,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QTextEdit" name="DeleteDesc">
       <property name="geometry">
        <rect>
-        <x>570</x>
-        <y>160</y>
-        <width>261</width>
-        <height>91</height>
+        <x>610</x>
+        <y>140</y>
+        <width>421</width>
+        <height>251</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -1243,8 +1246,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QLabel" name="DeleteCipher">
       <property name="geometry">
        <rect>
-        <x>110</x>
-        <y>110</y>
+        <x>60</x>
+        <y>90</y>
         <width>241</width>
         <height>41</height>
        </rect>
@@ -1262,15 +1265,15 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QLabel" name="RetrieveCipherLB_3">
       <property name="geometry">
        <rect>
-        <x>570</x>
-        <y>100</y>
+        <x>610</x>
+        <y>70</y>
         <width>241</width>
         <height>41</height>
        </rect>
       </property>
       <property name="font">
        <font>
-        <pointsize>20</pointsize>
+        <pointsize>25</pointsize>
         <bold>false</bold>
        </font>
       </property>
@@ -1279,14 +1282,14 @@ li.checked::marker { content: &quot;\2612&quot;; }
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="page_4">
+    <widget class="QWidget" name="EncryptFilePage">
      <widget class="QPlainTextEdit" name="EncryptFileDesc">
       <property name="geometry">
        <rect>
-        <x>660</x>
-        <y>130</y>
-        <width>291</width>
-        <height>91</height>
+        <x>610</x>
+        <y>140</y>
+        <width>421</width>
+        <height>251</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -1303,8 +1306,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPlainTextEdit" name="EncryptFileKey">
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>140</y>
+        <x>280</x>
+        <y>90</y>
         <width>151</width>
         <height>41</height>
        </rect>
@@ -1316,8 +1319,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPushButton" name="EncryptFileBTN_2">
       <property name="geometry">
        <rect>
-        <x>660</x>
-        <y>510</y>
+        <x>730</x>
+        <y>500</y>
         <width>171</width>
         <height>51</height>
        </rect>
@@ -1329,58 +1332,14 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPushButton" name="EncryptFileBack">
       <property name="geometry">
        <rect>
-        <x>870</x>
-        <y>510</y>
+        <x>950</x>
+        <y>500</y>
         <width>171</width>
         <height>51</height>
        </rect>
       </property>
       <property name="text">
        <string>Back</string>
-      </property>
-     </widget>
-     <widget class="QPlainTextEdit" name="plainTextEdit_4">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>140</y>
-        <width>181</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="plainText">
-       <string>Enter your Key</string>
-      </property>
-     </widget>
-     <widget class="QPlainTextEdit" name="plainTextEdit_5">
-      <property name="geometry">
-       <rect>
-        <x>660</x>
-        <y>70</y>
-        <width>301</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="plainText">
-       <string>Encrypt a File</string>
       </property>
      </widget>
      <widget class="QPlainTextEdit" name="LogoBannerTXT_8">
@@ -1417,15 +1376,53 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <string>Password Manager and Encryption Service</string>
       </property>
      </widget>
+     <widget class="QLabel" name="DeleteCipher_2">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>90</y>
+        <width>241</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Enter Your Key</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="DeleteCipher_3">
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>70</y>
+        <width>241</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>25</pointsize>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Encrypt a File</string>
+      </property>
+     </widget>
     </widget>
-    <widget class="QWidget" name="page_5">
+    <widget class="QWidget" name="DecryptFilePage">
      <widget class="QPlainTextEdit" name="DecryptDesc">
       <property name="geometry">
        <rect>
-        <x>640</x>
+        <x>610</x>
         <y>140</y>
-        <width>291</width>
-        <height>91</height>
+        <width>421</width>
+        <height>251</height>
        </rect>
       </property>
       <property name="frameShape">
@@ -1442,21 +1439,21 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPlainTextEdit" name="DecryptKey">
       <property name="geometry">
        <rect>
-        <x>260</x>
-        <y>130</y>
+        <x>280</x>
+        <y>90</y>
         <width>161</width>
         <height>41</height>
        </rect>
       </property>
       <property name="plainText">
-       <string>key</string>
+       <string>Key</string>
       </property>
      </widget>
      <widget class="QPushButton" name="DecryptDecryptBTN">
       <property name="geometry">
        <rect>
-        <x>650</x>
-        <y>520</y>
+        <x>730</x>
+        <y>500</y>
         <width>171</width>
         <height>51</height>
        </rect>
@@ -1468,65 +1465,14 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <widget class="QPushButton" name="DecryptBackBTN">
       <property name="geometry">
        <rect>
-        <x>880</x>
-        <y>520</y>
+        <x>950</x>
+        <y>500</y>
         <width>171</width>
         <height>51</height>
        </rect>
       </property>
       <property name="text">
        <string>Back</string>
-      </property>
-     </widget>
-     <widget class="QTextEdit" name="textEdit_2">
-      <property name="geometry">
-       <rect>
-        <x>640</x>
-        <y>80</y>
-        <width>231</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="html">
-       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-hr { height: 1px; border-width: 0; }
-li.unchecked::marker { content: &quot;\2610&quot;; }
-li.checked::marker { content: &quot;\2612&quot;; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Noto Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:16pt;&quot;&gt;Decrypt a File&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-     <widget class="QPlainTextEdit" name="plainTextEdit_6">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>130</y>
-        <width>181</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>16</pointsize>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="verticalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOff</enum>
-      </property>
-      <property name="horizontalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOff</enum>
-      </property>
-      <property name="plainText">
-       <string>Enter your Key</string>
       </property>
      </widget>
      <widget class="QPlainTextEdit" name="LogoBannerTXT_9">
@@ -1563,9 +1509,47 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <string>Password Manager and Encryption Service</string>
       </property>
      </widget>
+     <widget class="QLabel" name="DeleteCipher_4">
+      <property name="geometry">
+       <rect>
+        <x>610</x>
+        <y>70</y>
+        <width>241</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>25</pointsize>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Decrypt a File</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="DeleteCipher_5">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>90</y>
+        <width>241</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Decrypt a File</string>
+      </property>
+     </widget>
     </widget>
-    <widget class="QWidget" name="page_6">
-     <widget class="QPlainTextEdit" name="plainTextEdit_7">
+    <widget class="QWidget" name="AboutPage">
+     <widget class="QPlainTextEdit" name="ClickDesc">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -1575,7 +1559,13 @@ li.checked::marker { content: &quot;\2612&quot;; }
        </rect>
       </property>
       <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
+       <enum>QFrame::Panel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Sunken</enum>
+      </property>
+      <property name="lineWidth">
+       <number>2</number>
       </property>
       <property name="plainText">
        <string>How many websites do you visit. Out of those, how many require a login. How many passwords are locked up inside your head, or even worse, written on pen and paper? Gone are the days of this archaic and dangerous practice. Click is a password manager that allows you to save all your passwords under one master password.
@@ -1586,17 +1576,23 @@ Additionally, you can choose to encrypt single files with a key of your choice.
 </string>
       </property>
      </widget>
-     <widget class="QPlainTextEdit" name="plainTextEdit_8">
+     <widget class="QPlainTextEdit" name="TechOverviewDesc">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>390</y>
+        <y>380</y>
         <width>1101</width>
         <height>101</height>
        </rect>
       </property>
       <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
+       <enum>QFrame::Panel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Sunken</enum>
+      </property>
+      <property name="lineWidth">
+       <number>2</number>
       </property>
       <property name="plainText">
        <string>The GUI is thanks to QT Framework. This is built as a widget application. User input collected with the GUI is sent to the User class which decides what to do with it. If something needs to be encrypted or decrypted, it will call upon the underlying (and personally implemented) encryption algorithms. If some data needs to be stored, changed, or retrieved, it will communicate with the SQLite3 database to get that done. </string>
@@ -1605,8 +1601,8 @@ Additionally, you can choose to encrypt single files with a key of your choice.
      <widget class="QPushButton" name="DecryptBackBTN_2">
       <property name="geometry">
        <rect>
-        <x>930</x>
-        <y>560</y>
+        <x>950</x>
+        <y>520</y>
         <width>171</width>
         <height>51</height>
        </rect>
@@ -1649,7 +1645,7 @@ Additionally, you can choose to encrypt single files with a key of your choice.
        <string>Password Manager and Encryption Service</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_6">
+     <widget class="QLabel" name="AboutHeader">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -1668,11 +1664,11 @@ Additionally, you can choose to encrypt single files with a key of your choice.
        <string>What is Click</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_7">
+     <widget class="QLabel" name="AboutHeader_2">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>340</y>
+        <y>330</y>
         <width>451</width>
         <height>51</height>
        </rect>
@@ -1713,7 +1709,7 @@ Additionally, you can choose to encrypt single files with a key of your choice.
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="Line" name="bannerLine">
+   <widget class="Line" name="Seperator">
     <property name="geometry">
      <rect>
       <x>-10</x>

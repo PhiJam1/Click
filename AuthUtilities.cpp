@@ -1,10 +1,7 @@
 #include <iostream>
 #include <cstdlib>
-#include <cstring>
 #include <cctype>
 #include <ctime>
-#include <fstream>
-#include <ios>
 #include <bits/stdc++.h>
 #include <sqlite3.h>
 #include </usr/include/python3.12/Python.h>

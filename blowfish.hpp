@@ -21,19 +21,21 @@
  * https://www.geeksforgeeks.org/blowfish-algorithm-with-examples/#
  */
 
-std::string f(std::string plaintext);
 
 void generateSubKeys(int *pBoxes);
+void keyInit(std::string key);
+void KeyCleanUp();
+
+std::string f(std::string plaintext);
+std::string XOR(std::string s1, std::string s2);
 
 std::string encrypt(std::string plaintext);
-std::string EncryptDriverPassword(std::string plaintext, std::string key);
+std::string decrypt(std::string ciphertext);
 
+std::string EncryptDriverPassword(std::string plaintext, std::string key);
 std::string DecryptDriverPassword(std::string ciphertext, std::string key);
 
 std::string GetHexString(std::string str);
-
 std::string GetStrFromHex(std::string str);
-
-void KeyCleanUp();
 
 #endif // BLOWFISH_HPP

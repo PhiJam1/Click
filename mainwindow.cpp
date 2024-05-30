@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     // Note, index 0 -> sign up page, index 1 -> login page, index -> main page
-    ui->Login_Page->setCurrentIndex(1);
+    ui->PageManager->setCurrentIndex(1);
     QPixmap img("../../MainPageImg.png");
     ui->LockIMG->setPixmap(img);
 
@@ -42,7 +42,7 @@ void MainWindow::on_LoginBTN_clicked() {
 
     Login(username.toStdString(), password.toStdString());
     if (user != nullptr) {
-        ui->Login_Page->setCurrentIndex(2);
+        ui->PageManager->setCurrentIndex(2);
         ui->LogInBTN->setText("Log Out");
     }
 
@@ -69,20 +69,20 @@ void MainWindow::on_SignUpBTN_clicked()
     }
 
     if (NewAccount(firstName.toStdString(), lastName.toStdString(), email.toStdString(), password.toStdString())) {
-        ui->Login_Page->setCurrentIndex(1);
+        ui->PageManager->setCurrentIndex(1);
     }
 }
 
 
 void MainWindow::on_LoginRedirect_clicked()
 {
-    ui->Login_Page->setCurrentIndex(1);
+    ui->PageManager->setCurrentIndex(1);
 }
 
 
 void MainWindow::on_SignUpRedirect_clicked()
 {
-   ui->Login_Page->setCurrentIndex(0);
+   ui->PageManager->setCurrentIndex(0);
 }
 
 
@@ -91,13 +91,13 @@ void MainWindow::on_SignUpRedirect_clicked()
 
 void MainWindow::on_CreateBTN_clicked()
 {
-    ui->Login_Page->setCurrentIndex(3);
+    ui->PageManager->setCurrentIndex(3);
 }
 
 
 void MainWindow::on_CreateBackBTN_clicked()
 {
-    ui->Login_Page->setCurrentIndex(2);
+    ui->PageManager->setCurrentIndex(2);
 }
 
 
@@ -152,13 +152,13 @@ void MainWindow::on_RetrieiveBTN_clicked()
         ui->RetrieveSelectEntry->addItem(QString::fromStdString(service_names.at(i)));
     }
 
-    ui->Login_Page->setCurrentIndex(4);
+    ui->PageManager->setCurrentIndex(4);
 }
 
 
 void MainWindow::on_RetrieveBackBTN_clicked()
 {
-    ui->Login_Page->setCurrentIndex(2);
+    ui->PageManager->setCurrentIndex(2);
 }
 
 
@@ -179,7 +179,7 @@ void MainWindow::on_RetrieveGetBTN_clicked()
 
 void MainWindow::on_DeleteBack_clicked()
 {
-    ui->Login_Page->setCurrentIndex(2);
+    ui->PageManager->setCurrentIndex(2);
 }
 
 
@@ -193,7 +193,7 @@ void MainWindow::on_DeleteBTN_clicked()
     for (unsigned long i = 0; i < serviceNames.size(); i++) {
         ui->DeleteDropDown->addItem(QString::fromStdString(serviceNames.at(i)));
     }
-    ui->Login_Page->setCurrentIndex(5);
+    ui->PageManager->setCurrentIndex(5);
 }
 
 
@@ -210,7 +210,7 @@ void MainWindow::on_DeleteBTN_2_clicked()
 
 void MainWindow::on_EncryptFileBack_clicked()
 {
-    ui->Login_Page->setCurrentIndex(2);
+    ui->PageManager->setCurrentIndex(2);
 }
 
 
@@ -223,19 +223,19 @@ void MainWindow::on_EncryptFileBTN_2_clicked()
 
 void MainWindow::on_EncryptFileBTN_clicked()
 {
-    ui->Login_Page->setCurrentIndex(6);
+    ui->PageManager->setCurrentIndex(6);
 }
 
 
 void MainWindow::on_DecryptBackBTN_clicked()
 {
-    ui->Login_Page->setCurrentIndex(2);
+    ui->PageManager->setCurrentIndex(2);
 }
 
 
 void MainWindow::on_DecryptFileBTN_clicked()
 {
-    ui->Login_Page->setCurrentIndex(7);
+    ui->PageManager->setCurrentIndex(7);
 }
 
 
@@ -248,13 +248,13 @@ void MainWindow::on_DecryptDecryptBTN_clicked()
 
 void MainWindow::on_DecryptBackBTN_2_clicked()
 {
-    ui->Login_Page->setCurrentIndex(user == nullptr ? 1 : 2);
+    ui->PageManager->setCurrentIndex(user == nullptr ? 1 : 2);
 }
 
 
 void MainWindow::on_AboutBTN_clicked()
 {
-    ui->Login_Page->setCurrentIndex(8);
+    ui->PageManager->setCurrentIndex(8);
 }
 
 
@@ -264,5 +264,5 @@ void MainWindow::on_LogInBTN_clicked()
         ui->LogInBTN->setText("Log in");
         user = nullptr;
     }
-    ui->Login_Page->setCurrentIndex(1);
+    ui->PageManager->setCurrentIndex(1);
 }
