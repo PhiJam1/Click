@@ -33,7 +33,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="SignUpPage">
      <widget class="QGroupBox" name="SignUpBox">
@@ -1684,6 +1684,7 @@ Additionally, you can choose to encrypt single files with a key of your choice.
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="page"/>
    </widget>
    <widget class="QPushButton" name="AboutBTN">
     <property name="geometry">

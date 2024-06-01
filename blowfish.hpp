@@ -27,7 +27,7 @@ void keyInit(std::string key);
 void KeyCleanUp();
 
 std::string f(std::string plaintext);
-std::string XOR(std::string s1, std::string s2);
+std::string XORStr(std::string s1, std::string s2);
 
 std::string encrypt(std::string plaintext);
 std::string decrypt(std::string ciphertext);

@@ -230,7 +230,7 @@ std::string p[] = { "243f6a88", "85a308d3", "13198a2e", "03707344", "a4093822",
                    "b5470917", "9216d5d9", "8979fb1b" };
 
 // function that will xor two string hex values
-std::string XOR(std::string s1, std::string s2) {
+std::string XORStr(std::string s1, std::string s2) {
     unsigned int j = stol(s1, 0, 16) ^ stol(s2, 0, 16);
     std::stringstream sstream;
     sstream << std::hex << j;
@@ -247,7 +247,7 @@ std::string XOR(std::string s1, std::string s2) {
 */
 void keyInit(std::string key) {
     for (int i = 0; i < 18; i++) {
-        P[i] = XOR(P[i], key);
+        P[i] = XORStr(P[i], key);
     }
 }
 
@@ -292,13 +292,13 @@ std::string encrypt(std::string plaintext) {
         right = plaintext.substr(8, 8);
 
         //left xor with p[i]
-        left = XOR(left, P[i]);
+        left = XORStr(left, P[i]);
 
         //get function output on f
         std::string temp = f(left);
 
         //right xor function output
-        right = XOR(temp, right);
+        right = XORStr(temp, right);
 
         //swap right and left
         plaintext = right + left;
@@ -308,8 +308,8 @@ std::string encrypt(std::string plaintext) {
     right = plaintext.substr(0, 8);
     left = plaintext.substr(8, 8);
 
-    right = XOR(right, P[16]);
-    left = XOR(left, P[17]);
+    right = XORStr(right, P[16]);
+    left = XORStr(left, P[17]);
     return left + right;
 
 }
@@ -326,14 +326,14 @@ std::string decrypt(std::string ciphertext) {
         right = ciphertext.substr(8, 8);
 
         //left xor with p[i]
-        left = XOR(left, P[i]);
+        left = XORStr(left, P[i]);
 
 
         //get function output on f
         std::string temp = f(left);
 
         //right xor function output
-        right = XOR(temp, right);
+        right = XORStr(temp, right);
 
         //swap right and left
         ciphertext = right + left;
@@ -343,8 +343,8 @@ std::string decrypt(std::string ciphertext) {
     right = ciphertext.substr(0, 8);
     left = ciphertext.substr(8, 8);
 
-    right = XOR(right, P[1]);
-    left = XOR(left, P[0]);
+    right = XORStr(right, P[1]);
+    left = XORStr(left, P[0]);
     return left + right;
 
 }

@@ -5,17 +5,15 @@
 #include "User.hpp"
 #include "mainwindow.h"
 
-// functions to create accounts and log users in
-User* Login(bool new_user);
-User* NewAccount(Ui::Click *ui);
 
-// callback functions
+// callback functions for database queries
 int EmailInUse(void* data, int argc, char** argv, char** /* azColName */);
 int GetSalt(void* data, int argc, char** argv, char** /* azColName */);
 int CheckPassword(void* data, int argc, char** argv, char** /* azColName */);
 
-// helper function
-std::string GenSalt();
-bool ValidPassword(std::string password, Ui::Click *ui);
+// Functions that interface with the python code
+bool Check2fa(std::string email);
 void GetSaltAndHash(std::string& hash, const char * password);
+
+
 #endif // AUTHUTILITIES_HPP

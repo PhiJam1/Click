@@ -80,13 +80,6 @@ private:
     // helper function
     std::string GenSalt();
     bool ValidPassword(std::string password);
-    void TestingPY();
 };
-
-// non member callback functions
-int EmailInUse(void* data, int argc, char** argv, char** /* azColName */);
-int GetSalt(void* data, int argc, char** argv, char** /* azColName */);
-int CheckPassword(void* data, int argc, char** argv, char** /* azColName */);
-
 #endif // MAINWINDOW_H
 
