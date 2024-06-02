@@ -6,6 +6,16 @@
 #include "User.hpp"
 #define ERROR_TXT_HEADER_LOGIN_PAGE "Please log into the service to continue."
 #define ERROR_TXT_HEADER_SINGUP_PAGE "Sign Up to use the service."
+
+typedef struct {
+    std::string first_name;
+    std::string last_name;
+    std::string email;
+    std::string password;
+    std::string salt;
+    std::string TFAKey;
+} UserUnverified;
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class Click;
@@ -68,13 +78,15 @@ private slots:
 
     void on_LogInBTN_clicked();
 
+    void on_VerifyBTN_clicked();
+
 private:
     Ui::Click *ui;
 
     User * user = nullptr;
-
+    UserUnverified userUnverified;
     // function to create accounts and log users in
-    void Login(std::string email, std::string password);
+    bool Login(std::string email, std::string password);
     bool NewAccount(std::string first_name, std::string last_name, std::string email, std::string password);
 
     // helper function

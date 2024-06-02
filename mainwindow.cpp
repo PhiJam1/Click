@@ -14,8 +14,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->PageManager->setCurrentIndex(1);
     QPixmap img("../../MainPageImg.png");
     ui->LockIMG->setPixmap(img);
-
     ui->LockIMGSignUp->setPixmap(img);
+    ui->LockIMG2fa->setPixmap(img);
 
 }
 
@@ -42,10 +42,8 @@ void MainWindow::on_LoginBTN_clicked() {
         return;
     }
 
-    Login(username.toStdString(), password.toStdString());
-    if (user != nullptr) {
-        ui->PageManager->setCurrentIndex(2);
-        ui->LogInBTN->setText("Log Out");
+    if (Login(username.toStdString(), password.toStdString())) {
+        ui->PageManager->setCurrentIndex(9);
     }
 
 }
@@ -275,7 +273,7 @@ void MainWindow::on_LogInBTN_clicked()
  * It just tells the function there is no saved data to load.
 */
 
-void MainWindow::Login(std::string email, std::string password) {
+bool MainWindow::Login(std::string email, std::string password) {
     // user information
     std::string salt = " ";
     std::string first_name = " ";
@@ -293,7 +291,7 @@ void MainWindow::Login(std::string email, std::string password) {
     if (rc) {
         ui->MessagePane->append("Cannot open database: ");
         ui->MessagePane->append(sqlite3_errmsg(db));
-        return;
+        return false;
     }
 
 
@@ -305,7 +303,7 @@ void MainWindow::Login(std::string email, std::string password) {
     if (false && salt == " ") {
         ui->MessagePane->append("Invalid Login. Try Again\n");
         sqlite3_close(db);
-        return;
+        return false;
     }
 
     // if we get the salt, get and check the password.
@@ -314,13 +312,19 @@ void MainWindow::Login(std::string email, std::string password) {
     rc = sqlite3_exec(db, selectDataSQL.c_str(), CheckPassword, &tmp, 0);
 
     if (rc == SQLITE_OK) {
-        if (Check2fa(email)) {
-            // construct a new user object and send back the address
-            this->user = new User(first_name, last_name, email, password, salt);
-            sqlite3_close(db);
-            return;
-        }
+        // construct a new UNVERIFIED user struct and send back the address
+        // they'll still have to get through 2fa to create a actual user object
+        UserUnverified userunverified;
+        this->userUnverified.first_name = first_name;
+        this->userUnverified.last_name = last_name;
+        this->userUnverified.email = email;
+        this->userUnverified.password = password;
+        this->userUnverified.salt = salt;
+
+        sqlite3_close(db);
+        return true;
     }
+
     ui->MessagePane->append("Invalid Login. Try Again\n");
     sqlite3_close(db);
 }
@@ -394,10 +398,6 @@ bool MainWindow::NewAccount(std::string first_name, std::string last_name, std::
     return true;
 }
 
-
-
-/* helper functions */
-
 /*
  * Function that will enforces password rules.
 */
@@ -457,3 +457,10 @@ std::string MainWindow::GenSalt() {
     }
     return salt;
 }
+
+void MainWindow::on_VerifyBTN_clicked()
+{
+    // if it worked
+    ui->LogInBTN->setText("  Log Out");
+}
+

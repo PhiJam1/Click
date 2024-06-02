@@ -199,11 +199,82 @@ void GetSaltAndHash(std::string& hash, const char * password) {
     Py_Finalize();
 }
 
-
 // Function that will call on python functions
 // to send an email with verification code for 2fa.
-bool Check2fa(std::string email) {
-    // switch the  page to the 2fa entry page
-    //ui->PageManager->setCurrentIndex(4);
-    return true;
+
+std::string Send2FACode(std::string email, int interval) {
+
+    // Tells the linker to check the current directory for py files
+    setenv("PYTHONPATH","./../../",1);      // Set as needed
+    Py_Initialize();
+    PyObject * name = nullptr;              // The name of the python file
+    PyObject * load_module = nullptr;       // Load in the file
+    PyObject * func = nullptr;              // The name of the function
+    PyObject * callfunc = nullptr;          // Calls the function and hold return value
+    PyObject * args = nullptr;              // arguements for the function
+
+    name = PyUnicode_FromString((char*)"AuthUtils");
+    if (name == nullptr) {
+        std::cout << PY_ERROR_MSG;
+        Py_Finalize();
+        return "";
+    }
+
+
+    load_module = PyImport_Import(name);
+    if (load_module == nullptr) {
+        std::cout << PY_ERROR_MSG;
+        Py_DECREF(name);
+        Py_Finalize();
+        return "";
+    }
+
+    // The actual function we need
+    func = PyObject_GetAttrString(load_module, (char*)"GenerateOTP");
+    if (func == nullptr) {
+        std::cout << PY_ERROR_MSG;
+        Py_DECREF(load_module);
+        Py_DECREF(name);
+        return "";
+    }
+
+    args = PyTuple_Pack(3, PyUnicode_FromString(email.c_str()), PyUnicode_FromString(SYS_EMAIL), PyLong_FromLong(TIME_INTERVAL));
+    if (args == nullptr) {
+        std::cout << PY_ERROR_MSG;
+        Py_DECREF(func);
+        Py_DECREF(load_module);
+        Py_DECREF(name);
+        return "";
+    }
+
+    // This calls  the  function
+    callfunc = PyObject_CallObject(func, args);
+    if (callfunc == nullptr) {
+        std::cout << PY_ERROR_MSG;
+        Py_DECREF(load_module);
+        Py_DECREF(func);
+        Py_DECREF(name);
+        return "";
+    }
+
+    std::string key = _PyUnicode_AsString(callfunc);
+
+    // Free all memory
+    Py_DECREF(args);
+    Py_DECREF(callfunc);
+    Py_DECREF(func);
+    Py_DECREF(load_module);
+    Py_DECREF(name);
+    callfunc = nullptr;
+    func = nullptr;
+    load_module = nullptr;
+    name = nullptr;
+    args = nullptr;
+
+    Py_Finalize();
+    return key;
+}
+
+void Verify2FACode(std::string key, int interval) {
+
 }
