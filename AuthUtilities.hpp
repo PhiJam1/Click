@@ -14,6 +14,11 @@
 //     PyObject * callfunc = nullptr;          // Calls the function and holds return value
 //     PyObject * args = nullptr;              // arguements for the function
 // } PyInfo_t;
+#define NAME_ERROR_MSG      "Issue with getting python file"
+#define MODULE_ERROR_MSG    "Issue loading module"
+#define FUNC_ERROR_MSG      "Issue loading function"
+#define CALLING_ERROR_MSG   "Issue calling functions"
+#define ARGS_ERROR_MSG      "Issue with args"
 
 typedef enum {
     NAME_ERROR,

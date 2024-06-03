@@ -318,7 +318,22 @@ bool MainWindow::Login(std::string email, std::string password) {
     try {
         rc = sqlite3_exec(db, selectDataSQL.c_str(), CheckPassword, &tmp, 0);
     } catch (PythonError NAME_ERROR) {
-        std::cout << "Name error on CheckPassword" << std::endl;
+        std::cout << NAME_ERROR_MSG << " FOR CHECKPASSWORD() " << std::endl;
+        ui->MessagePane->append(ERROR_PYTHON_LIB);
+    } catch (PythonError MODULE_ERROR) {
+        std::cout << MODULE_ERROR_MSG << " FOR CHECKPASSWORD() " << std::endl;
+        ui->MessagePane->append(ERROR_PYTHON_LIB);
+    } catch (PythonError FUNC_ERROR) {
+        std::cout << FUNC_ERROR_MSG << " FOR CHECKPASSWORD() " << std::endl;
+        ui->MessagePane->append(ERROR_PYTHON_LIB);
+    } catch (PythonError CALLING_ERROR) {
+        std::cout << CALLING_ERROR_MSG << " FOR CHECKPASSWORD() " << std::endl;
+        ui->MessagePane->append(ERROR_PYTHON_LIB);
+    } catch (PythonError ARGS_ERROR) {
+        std::cout << ARGS_ERROR_MSG << " FOR CHECKPASSWORD() " << std::endl;
+        ui->MessagePane->append(ERROR_PYTHON_LIB);
+    } catch (...) {
+        std::cout << "oh fuck\n" << std::endl;
         ui->MessagePane->append(ERROR_PYTHON_LIB);
     }
 
