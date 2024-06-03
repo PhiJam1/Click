@@ -17,10 +17,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->LockIMGSignUp->setPixmap(img);
     ui->LockIMG2fa->setPixmap(img);
 
+    // Start up the python mods
+    PythonInit();
+
 }
 
 MainWindow::~MainWindow()
 {
+    // free all python mods
+    PythonDestroy();
     delete ui;
 }
 
@@ -275,6 +280,7 @@ void MainWindow::on_LogInBTN_clicked()
 
 bool MainWindow::Login(std::string email, std::string password) {
     // user information
+    // std::cout << Send2FACode("Philipjames2004@gmail.com", 500) << std::flush;
     std::string salt = " ";
     std::string first_name = " ";
     std::string last_name = " ";
@@ -309,7 +315,12 @@ bool MainWindow::Login(std::string email, std::string password) {
     // if we get the salt, get and check the password.
     std::string selectDataSQL = "SELECT password_hash FROM credentials WHERE email = '" + email + "';";
     std::pair<std::string, std::string> tmp = {password, salt}; // shallow copies are fine here
-    rc = sqlite3_exec(db, selectDataSQL.c_str(), CheckPassword, &tmp, 0);
+    try {
+        rc = sqlite3_exec(db, selectDataSQL.c_str(), CheckPassword, &tmp, 0);
+    } catch (PythonError NAME_ERROR) {
+        std::cout << "Name error on CheckPassword" << std::endl;
+        ui->MessagePane->append(ERROR_PYTHON_LIB);
+    }
 
     if (rc == SQLITE_OK) {
         // construct a new UNVERIFIED user struct and send back the address
@@ -320,7 +331,11 @@ bool MainWindow::Login(std::string email, std::string password) {
         this->userUnverified.email = email;
         this->userUnverified.password = password;
         this->userUnverified.salt = salt;
-
+        // This will send the 2fa email to the user.
+        // save the key so the topt object can be recreated
+        // to verify the user's entered otp.
+        this->userUnverified.TFAKey = Send2FACode(email, TIME_INTERVAL);
+        std::cout << "the key: " << this->userUnverified.TFAKey << std::flush;
         sqlite3_close(db);
         return true;
     }
@@ -378,7 +393,6 @@ bool MainWindow::NewAccount(std::string first_name, std::string last_name, std::
 
     std::string hash = "";
     GetSaltAndHash(hash, password.c_str());
-    std::cout << hash << std::flush;
     // Save the hash, salt, and other user data
     std::string insert = "INSERT INTO credentials (email, password_hash, salt, first_name, last_name) VALUES ('" + email + "', " +
                          "'" + hash + "', " +
@@ -393,7 +407,6 @@ bool MainWindow::NewAccount(std::string first_name, std::string last_name, std::
         return false;
     }
 
-    std::cout << "Great! You'll be redirected to the login page.\n";
     sqlite3_close(db);
     return true;
 }

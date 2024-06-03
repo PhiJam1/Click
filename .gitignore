@@ -28,6 +28,7 @@ Makefile*
 *.app
 moc_*.cpp
 ui_*.h
+Secrets.hpp
 qrc_*.cpp
 Thumbs.db
 *.res

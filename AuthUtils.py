@@ -19,7 +19,7 @@ def Verify_Password(given_password, known_hash):
         return 2.0
 
 
-def GenerateOTP(user_email, sys_email, time_interval):
+def GenerateOTP(user_email, sys_email, sys_key, time_interval):
     key = pyotp.random_base32()
     totp = pyotp.TOTP(key, interval=time_interval)
     code = totp.now()
@@ -28,9 +28,9 @@ def GenerateOTP(user_email, sys_email, time_interval):
     text = f"Subject: {subject}\n\n{msg}"
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.starttls()
-    server.login(sys_email, "dsjm opmi uznh xnjj")
+    server.login(sys_email, sys_key)
     server.sendmail(sys_email, user_email, text)
-    return(key)
+    return(str(key))
 
 def CheckOTP(code, key, time_interval):
     totp = pyotp.TOTP(key, interval=time_interval)

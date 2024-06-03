@@ -23,6 +23,7 @@ SOURCES += \
 HEADERS += \
     AuthUtilities.hpp \
     CipherType.hpp \
+    Secrets.hpp \
     User.hpp \
     XOR.hpp \
     blowfish.hpp \
@@ -39,4 +40,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    AuthUtils.py
+    AuthUtils.py \
+    secret.txt
