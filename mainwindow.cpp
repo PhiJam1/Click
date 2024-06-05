@@ -50,7 +50,6 @@ void MainWindow::on_LoginBTN_clicked() {
     if (Login(username.toStdString(), password.toStdString())) {
         ui->PageManager->setCurrentIndex(9);
     }
-
 }
 
 
@@ -333,7 +332,7 @@ bool MainWindow::Login(std::string email, std::string password) {
         std::cout << ARGS_ERROR_MSG << " FOR CHECKPASSWORD() " << std::endl;
         ui->MessagePane->append(ERROR_PYTHON_LIB);
     } catch (...) {
-        std::cout << "oh fuck\n" << std::endl;
+        std::cout << UNEXPECTED_ERROR_MSG << std::endl;
         ui->MessagePane->append(ERROR_PYTHON_LIB);
     }
 
@@ -349,7 +348,33 @@ bool MainWindow::Login(std::string email, std::string password) {
         // This will send the 2fa email to the user.
         // save the key so the topt object can be recreated
         // to verify the user's entered otp.
-        this->userUnverified.TFAKey = Send2FACode(email, TIME_INTERVAL);
+        try {
+            this->userUnverified.TFAKey = Send2FACode(email, TIME_INTERVAL);
+        } catch (PythonError NAME_ERROR) {
+            std::cout << NAME_ERROR_MSG << " FOR Send2FACode() " << std::endl;
+            ui->MessagePane->append(ERROR_PYTHON_LIB);
+            return false;
+        } catch (PythonError MODULE_ERROR) {
+            std::cout << MODULE_ERROR_MSG << " FOR Send2FACode() " << std::endl;
+            ui->MessagePane->append(ERROR_PYTHON_LIB);
+            return false;
+        } catch (PythonError FUNC_ERROR) {
+            std::cout << FUNC_ERROR_MSG << " FOR Send2FACode() " << std::endl;
+            ui->MessagePane->append(ERROR_PYTHON_LIB);
+            return false;
+        } catch (PythonError CALLING_ERROR) {
+            std::cout << CALLING_ERROR_MSG << " FOR Send2FACode() " << std::endl;
+            ui->MessagePane->append(ERROR_PYTHON_LIB);
+            return false;
+        } catch (PythonError ARGS_ERROR) {
+            std::cout << ARGS_ERROR_MSG << " FOR Send2FACode() " << std::endl;
+            ui->MessagePane->append(ERROR_PYTHON_LIB);
+            return false;
+        } catch (...) {
+            std::cout << UNEXPECTED_ERROR_MSG << std::endl;
+            ui->MessagePane->append(ERROR_PYTHON_LIB);
+            return false;
+        }
         std::cout << "the key: " << this->userUnverified.TFAKey << std::flush;
         sqlite3_close(db);
         return true;
@@ -407,7 +432,35 @@ bool MainWindow::NewAccount(std::string first_name, std::string last_name, std::
     }
 
     std::string hash = "";
-    GetSaltAndHash(hash, password.c_str());
+
+    try {
+        GetSaltAndHash(hash, password.c_str());
+    } catch (PythonError NAME_ERROR) {
+        std::cout << NAME_ERROR_MSG << " FOR GetSaltAndHash() " << std::endl;
+        ui->ErrorSignupTXT->append(ERROR_SAVING_CREDS);
+        return false;
+    } catch (PythonError MODULE_ERROR) {
+        std::cout << MODULE_ERROR_MSG << " FOR GetSaltAndHash() " << std::endl;
+        ui->ErrorSignupTXT->append(ERROR_SAVING_CREDS);
+        return false;
+    } catch (PythonError FUNC_ERROR) {
+        std::cout << FUNC_ERROR_MSG << " FOR GetSaltAndHash() " << std::endl;
+        ui->ErrorSignupTXT->append(ERROR_SAVING_CREDS);
+        return false;
+    } catch (PythonError CALLING_ERROR) {
+        std::cout << CALLING_ERROR_MSG << " FOR GetSaltAndHash() " << std::endl;
+        ui->ErrorSignupTXT->append(ERROR_SAVING_CREDS);
+        return false;
+    } catch (PythonError ARGS_ERROR) {
+        std::cout << ARGS_ERROR_MSG << " FOR GetSaltAndHash() " << std::endl;
+        ui->ErrorSignupTXT->append(ERROR_SAVING_CREDS);
+        return false;
+    } catch (...) {
+        std::cout << UNEXPECTED_ERROR_MSG << std::endl;
+        ui->ErrorSignupTXT->append(ERROR_SAVING_CREDS);
+        return false;
+    }
+
     // Save the hash, salt, and other user data
     std::string insert = "INSERT INTO credentials (email, password_hash, salt, first_name, last_name) VALUES ('" + email + "', " +
                          "'" + hash + "', " +

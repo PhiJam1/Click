@@ -1,12 +1,16 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-
 #include <QMainWindow>
 #include "User.hpp"
-#define ERROR_TXT_HEADER_LOGIN_PAGE "Please log into the service to continue."
-#define ERROR_TXT_HEADER_SINGUP_PAGE "Sign Up to use the service."
-#define ERROR_PYTHON_LIB "There was an interval error access a library. Please try again later or contact the developer.\n"
+
+
+#define ERROR_TXT_HEADER_LOGIN_PAGE         "Please log into the service to continue."
+#define ERROR_TXT_HEADER_SINGUP_PAGE        "Sign Up to use the service."
+#define ERROR_PYTHON_LIB                    "There was an interval error access a library. Please try again later or contact the developer.\n"
+#define ERROR_SAVING_CREDS                  "Error saving cred data\n"
+#define UNEXPECTED_ERROR_MSG                "oh fuck"
+
 typedef struct {
     std::string first_name;
     std::string last_name;

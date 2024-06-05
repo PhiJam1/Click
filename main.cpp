@@ -1,3 +1,4 @@
+#include </usr/include/python3.12/Python.h>
 #include "mainwindow.h"
 
 #include <QApplication>

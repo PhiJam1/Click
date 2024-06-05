@@ -1,19 +1,13 @@
 #ifndef AUTHUTILITIES_HPP
 #define AUTHUTILITIES_HPP
-
 #include <string>
+
 #include "User.hpp"
 #include "mainwindow.h"
 
 #define TIME_INTERVAL 600 // 600 seconds is 10 min
 
-// typedef struct PyInfo {
-//     PyObject * name = nullptr;              // The name of the python file
-//     PyObject * load_module = nullptr;       // Load in the file
-//     PyObject * func = nullptr;              // The name of the function
-//     PyObject * callfunc = nullptr;          // Calls the function and holds return value
-//     PyObject * args = nullptr;              // arguements for the function
-// } PyInfo_t;
+
 #define NAME_ERROR_MSG      "Issue with getting python file"
 #define MODULE_ERROR_MSG    "Issue loading module"
 #define FUNC_ERROR_MSG      "Issue loading function"

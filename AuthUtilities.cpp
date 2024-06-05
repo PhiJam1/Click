@@ -10,12 +10,20 @@
 // #include "bcrypt.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "AuthUtilities.hpp"
+#include "AuthUtilities.hpp";
 #include "Secrets.hpp"
 #define PY_ERROR_MSG "Error with python function\n"
 
+// This fails when the Python include file (and <Python.h>) is added to AuthUtilities.h
+// I'm not sure why this is.
 
-
+typedef struct PyInfo {
+    PyObject * name = nullptr;
+    PyObject * load_module = nullptr;
+    PyObject * func = nullptr;
+    PyObject * callfunc = nullptr;
+    PyObject * args = nullptr;
+} PyInfo;
 
 
 /* Callback functions */
@@ -50,28 +58,29 @@ void PythonInit() {
     Py_Initialize();
 }
 
-// void PythonCleanUp(PyInfo_t& info) {
-//     if (info.name != nullptr) {
-//         Py_DECREF(info.name);
-//         info.name = nullptr;
-//     }
-//     if (info.load_module != nullptr) {
-//         Py_DECREF(info.load_module);
-//         info.load_module = nullptr;
-//     }
-//     if (info.func != nullptr) {
-//         Py_DECREF(info.func);
-//         info.func = nullptr;
-//     }
-//     if (info.callfunc != nullptr) {
-//         Py_DECREF(info.callfunc);
-//         info.callfunc = nullptr;
-//     }
-//     if (info.args != nullptr) {
-//         Py_DECREF(info.args);
-//         info.args = nullptr;
-//     }
-// }
+void PythonCleanUp(PyInfo& info) {
+
+    if (info.name != nullptr) {
+        Py_DECREF(info.name);
+        info.name = nullptr;
+    }
+    if (info.load_module != nullptr) {
+        Py_DECREF(info.load_module);
+        info.load_module = nullptr;
+    }
+    if (info.func != nullptr) {
+        Py_DECREF(info.func);
+        info.func = nullptr;
+    }
+    if (info.callfunc != nullptr) {
+        Py_DECREF(info.callfunc);
+        info.callfunc = nullptr;
+    }
+    if (info.args != nullptr) {
+        Py_DECREF(info.args);
+        info.args = nullptr;
+    }
+}
 
 void PythonDestroy() {
     Py_Finalize();
@@ -82,60 +91,47 @@ void PythonDestroy() {
  * if the password+salt is valid.
 */
 int CheckPassword(void* data, int argc, char** argv, char** /* azColName */) {
+
     auto& [known_hash, salt] = *static_cast<std::pair<std::string, std::string> *>(data);
     // argv[0] is the password hash.
-
-
-    // Tells the linker to check the current directory for py files
-    // setenv("PYTHONPATH","./../../",1);      // Set as needed
-    // Py_Initialize();
-    PyObject * name = nullptr;              // The name of the python file
-    PyObject * load_module = nullptr;       // Load in the file
-    PyObject * func = nullptr;              // The name of the function
-    PyObject * callfunc = nullptr;          // Calls the function and holds return value
-    PyObject * args = nullptr;              // arguements for the function
-
-    name = PyUnicode_FromString((char*)"AuthUtils");
-    name = nullptr;
-    if (name == nullptr) {
+    PyInfo info;
+    info.name = PyUnicode_FromString((char*)"AuthUtils");
+    info.name = nullptr;
+    if (info.name == nullptr) {
+        PythonCleanUp(info);
         throw NAME_ERROR;
     }
 
 
-    load_module = PyImport_Import(name);
-    if (load_module == nullptr) {
+    info.load_module = PyImport_Import(info.name);
+    if (info.load_module == nullptr) {
+        PythonCleanUp(info);
         throw MODULE_ERROR;
     }
 
     // The actual function we need
-    func = PyObject_GetAttrString(load_module, (char*)"Verify_Password");
-    if (func == nullptr) {
+    info.func = PyObject_GetAttrString(info.load_module, (char*)"Verify_Password");
+    if (info.func == nullptr) {
+        PythonCleanUp(info);
         throw FUNC_ERROR;
     }
 
-    args = PyTuple_Pack(2, PyUnicode_FromString(known_hash.c_str()), PyUnicode_FromString(argv[0]));
-    if (args == nullptr) {
+    info.args = PyTuple_Pack(2, PyUnicode_FromString(known_hash.c_str()), PyUnicode_FromString(argv[0]));
+    if (info.args == nullptr) {
+        PythonCleanUp(info);
         throw ARGS_ERROR;
     }
 
     // This calls  the  function
-    callfunc = PyObject_CallObject(func, args);
-    if (callfunc == nullptr) {
+    info.callfunc = PyObject_CallObject(info.func, info.args);
+    if (info.callfunc == nullptr) {
+        PythonCleanUp(info);
         throw CALLING_ERROR;
     }
 
-    double ret = PyFloat_AsDouble(callfunc);
-  // Free all memory
-    Py_DECREF(args);
-    Py_DECREF(callfunc);
-    Py_DECREF(func);
-    Py_DECREF(load_module);
-    Py_DECREF(name);
-    callfunc = nullptr;
-    func = nullptr;
-    load_module = nullptr;
-    name = nullptr;
-    args = nullptr;
+    double ret = PyFloat_AsDouble(info.callfunc);
+    // Free all memory
+    PythonCleanUp(info);
 
     return ret == 1.0 ? SQLITE_OK : SQLITE_AUTH;
 }
@@ -143,9 +139,6 @@ int CheckPassword(void* data, int argc, char** argv, char** /* azColName */) {
 
 void GetSaltAndHash(std::string& hash, const char * password) {
 
-    // Tells the linker to check the current directory for py files
-    // setenv("PYTHONPATH","./../../",1);      // Set as needed
-    // Py_Initialize();
     PyObject * name = nullptr;              // The name of the python file
     PyObject * load_module = nullptr;       // Load in the file
     PyObject * func = nullptr;              // The name of the function
@@ -209,8 +202,9 @@ void GetSaltAndHash(std::string& hash, const char * password) {
     load_module = nullptr;
     name = nullptr;
     args = nullptr;
-    if (PyErr_Occurred()) PyErr_Print();
-    // Py_Finalize();
+    if (PyErr_Occurred()) {
+        PyErr_Print();
+    }
 }
 
 // Function that will call on python functions
@@ -218,9 +212,7 @@ void GetSaltAndHash(std::string& hash, const char * password) {
 
 std::string Send2FACode(std::string email, int interval) {
     return "";
-    // Tells the linker to check the current directory for py files
-    // setenv("PYTHONPATH","./../../",1);      // Set as needed
-    // Py_Initialize();
+
     PyObject * name = nullptr;              // The name of the python file
     PyObject * load_module = nullptr;       // Load in the file
     PyObject * func = nullptr;              // The name of the function
@@ -294,8 +286,10 @@ std::string Send2FACode(std::string email, int interval) {
     name = nullptr;
     args = nullptr;
 
-    // Py_Finalize();
     std::cout << key << std::flush;
+    if (PyErr_Occurred()) {
+        PyErr_Print();
+    }
     return key;
 }
 
