@@ -279,7 +279,6 @@ void MainWindow::on_LogInBTN_clicked()
 
 bool MainWindow::Login(std::string email, std::string password) {
     // user information
-    // std::cout << Send2FACode("Philipjames2004@gmail.com", 500) << std::flush;
     std::string salt = " ";
     std::string first_name = " ";
     std::string last_name = " ";
@@ -543,5 +542,57 @@ void MainWindow::on_VerifyBTN_clicked()
 {
     // if it worked
     ui->LogInBTN->setText("  Log Out");
+}
+
+
+void MainWindow::on_ResendCodeBTN_clicked()
+{
+    // This will send the 2fa email to the user.
+    // save the key so the topt object can be recreated
+    // to verify the user's entered otp.
+    try {
+        this->userUnverified.TFAKey = Send2FACode(this->userUnverified.email, TIME_INTERVAL);
+    } catch (PythonError NAME_ERROR) {
+        std::cout << NAME_ERROR_MSG << " FOR Send2FACode() " << std::endl;
+        ui->MessagePane->append(ERROR_PYTHON_LIB);
+        this->userUnverified.TFAKey = "ERROR";
+        ui->ResendConfirm->setText(ui->ResendConfirm->text() + "There was an error.\n");
+        return;
+    } catch (PythonError MODULE_ERROR) {
+        std::cout << MODULE_ERROR_MSG << " FOR Send2FACode() " << std::endl;
+        ui->MessagePane->append(ERROR_PYTHON_LIB);
+        this->userUnverified.TFAKey = "ERROR";
+        ui->ResendConfirm->setText(ui->ResendConfirm->text() + "There was an error.\n");
+        return;
+    } catch (PythonError FUNC_ERROR) {
+        std::cout << FUNC_ERROR_MSG << " FOR Send2FACode() " << std::endl;
+        ui->MessagePane->append(ERROR_PYTHON_LIB);
+        this->userUnverified.TFAKey = "ERROR";
+        ui->ResendConfirm->setText(ui->ResendConfirm->text() + "There was an error.\n");
+        return;
+    } catch (PythonError CALLING_ERROR) {
+        std::cout << CALLING_ERROR_MSG << " FOR Send2FACode() " << std::endl;
+        ui->MessagePane->append(ERROR_PYTHON_LIB);
+        this->userUnverified.TFAKey = "ERROR";
+        ui->ResendConfirm->setText(ui->ResendConfirm->text() + "There was an error.\n");
+        return;
+    } catch (PythonError ARGS_ERROR) {
+        std::cout << ARGS_ERROR_MSG << " FOR Send2FACode() " << std::endl;
+        ui->MessagePane->append(ERROR_PYTHON_LIB);
+        this->userUnverified.TFAKey = "ERROR";
+        ui->ResendConfirm->setText(ui->ResendConfirm->text() + "There was an error.\n");
+        return;
+    } catch (...) {
+        std::cout << UNEXPECTED_ERROR_MSG << std::endl;
+        ui->MessagePane->append(ERROR_PYTHON_LIB);
+        this->userUnverified.TFAKey = "ERROR";
+        ui->ResendConfirm->setText(ui->ResendConfirm->text() + "There was an error.\n");
+        return;
+    }
+
+    // If the logic gets this far, the code must have been sent or there an a
+    // unhandled, uncatastrophic error.
+    std::cout << "Code resent. The key: " << this->userUnverified.TFAKey << std::flush;
+    ui->ResendConfirm->setText(ui->ResendConfirm->text() + "Code Resent\n");
 }
 

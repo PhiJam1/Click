@@ -130,6 +130,10 @@ int CheckPassword(void* data, int argc, char** argv, char** /* azColName */) {
     }
 
     double ret = PyFloat_AsDouble(info.callfunc);
+
+    if (PyErr_Occurred()) {
+        PyErr_Print();
+    }
     // Free all memory
     PythonCleanUp(info);
 
@@ -139,157 +143,107 @@ int CheckPassword(void* data, int argc, char** argv, char** /* azColName */) {
 
 void GetSaltAndHash(std::string& hash, const char * password) {
 
-    PyObject * name = nullptr;              // The name of the python file
-    PyObject * load_module = nullptr;       // Load in the file
-    PyObject * func = nullptr;              // The name of the function
-    PyObject * callfunc = nullptr;          // Calls the function and hold return value
-    PyObject * args = nullptr;              // arguements for the function
-
-    name = PyUnicode_FromString((char*)"AuthUtils");
-    if (name == nullptr) {
-        std::cout << PY_ERROR_MSG;
-        Py_Finalize();
-        return;
+    PyInfo info;
+    info.name = PyUnicode_FromString((char*)"AuthUtils");
+    if (info.name == nullptr) {
+        PythonCleanUp(info);
+        throw NAME_ERROR;
     }
 
 
-    load_module = PyImport_Import(name);
-    if (load_module == nullptr) {
-        std::cout << PY_ERROR_MSG;
-        Py_DECREF(name);
-        Py_Finalize();
-        return;
+    info.load_module = PyImport_Import(info.name);
+    if (info.load_module == nullptr) {
+        PythonCleanUp(info);
+        throw MODULE_ERROR;
     }
 
     // The actual function we need
-    func = PyObject_GetAttrString(load_module, (char*)"Register_Password");
-    if (func == nullptr) {
-        std::cout << PY_ERROR_MSG;
-        Py_DECREF(load_module);
-        Py_DECREF(name);
-        return;
+    info.func = PyObject_GetAttrString(info.load_module, (char*)"Register_Password");
+    if (info.func == nullptr) {
+        PythonCleanUp(info);
+        throw FUNC_ERROR;
     }
 
-    args = PyTuple_Pack(1, PyUnicode_FromString(password));
-    if (args == nullptr) {
-        std::cout << PY_ERROR_MSG;
-        Py_DECREF(func);
-        Py_DECREF(load_module);
-        Py_DECREF(name);
-        return;
+    info.args = PyTuple_Pack(1, PyUnicode_FromString(password));
+    if (info.args == nullptr) {
+        PythonCleanUp(info);
+        throw ARGS_ERROR;
     }
 
     // This calls  the  function
-    callfunc = PyObject_CallObject(func, args);
-    if (callfunc == nullptr) {
-        std::cout << PY_ERROR_MSG;
-        Py_DECREF(load_module);
-        Py_DECREF(func);
-        Py_DECREF(name);
-        return;
+    info.callfunc = PyObject_CallObject(info.func, info.args);
+    if (info.callfunc == nullptr) {
+        PythonCleanUp(info);
+        throw CALLING_ERROR;
     }
 
-    hash = _PyUnicode_AsString(callfunc);
+    hash = _PyUnicode_AsString(info.callfunc);
 
-    // Free all memory
-    Py_DECREF(args);
-    Py_DECREF(callfunc);
-    Py_DECREF(func);
-    Py_DECREF(load_module);
-    Py_DECREF(name);
-    callfunc = nullptr;
-    func = nullptr;
-    load_module = nullptr;
-    name = nullptr;
-    args = nullptr;
     if (PyErr_Occurred()) {
         PyErr_Print();
     }
+
+    // Free all memory
+    PythonCleanUp(info);
 }
 
 // Function that will call on python functions
 // to send an email with verification code for 2fa.
 
 std::string Send2FACode(std::string email, int interval) {
-    return "";
-
-    PyObject * name = nullptr;              // The name of the python file
-    PyObject * load_module = nullptr;       // Load in the file
-    PyObject * func = nullptr;              // The name of the function
-    PyObject * callfunc = nullptr;          // Calls the function and hold return value
-    PyObject * args = nullptr;              // arguements for the function
-
-    name = PyUnicode_FromString((char*)"AuthUtils");
+    PyInfo info;
+    info.name = PyUnicode_FromString((char*)"AuthUtils");
     if (PyErr_Occurred()) PyErr_Print();
-    if (name == nullptr) {
-        std::cout << PY_ERROR_MSG;
-        Py_Finalize();
-        return "";
+    if (info.name == nullptr) {
+        PythonCleanUp(info);
+        throw NAME_ERROR;
     }
 
 
-    load_module = PyImport_Import(name);
+    info.load_module = PyImport_Import(info.name);
     if (PyErr_Occurred()) PyErr_Print();
-    if (load_module == nullptr) {
-        std::cout << PY_ERROR_MSG;
-        Py_DECREF(name);
-        Py_Finalize();
-        return "";
+    if (info.load_module == nullptr) {
+        PythonCleanUp(info);
+        throw MODULE_ERROR;
     }
 
     // The actual function we need
-    func = PyObject_GetAttrString(load_module, (char*)"GenerateOTP");
+    info.func = PyObject_GetAttrString(info.load_module, (char*)"GenerateOTP");
     if (PyErr_Occurred()) PyErr_Print();
-    if (func == nullptr) {
-        std::cout << PY_ERROR_MSG;
-        Py_DECREF(load_module);
-        Py_DECREF(name);
-        return "";
+    if (info.func == nullptr) {
+        PythonCleanUp(info);
+        throw FUNC_ERROR;
     }
 
-    args = PyTuple_Pack(4,
+    info.args = PyTuple_Pack(4,
                         PyUnicode_FromString(email.c_str()),
                         PyUnicode_FromString(SYS_EMAIL),
                         PyUnicode_FromString(SYS_EMAIL_KEY),
                         PyLong_FromLong(TIME_INTERVAL)
                         );
-    if (args == nullptr) {
-        std::cout << PY_ERROR_MSG;
-        Py_DECREF(func);
-        Py_DECREF(load_module);
-        Py_DECREF(name);
-        return "";
+    if (info.args == nullptr) {
+        PythonCleanUp(info);
+        throw ARGS_ERROR;
     }
 
     // This calls  the  function
-    callfunc = PyObject_CallObject(func, args);
+    info.callfunc = PyObject_CallObject(info.func, info.args);
     if (PyErr_Occurred()) PyErr_Print();
-    if (callfunc == nullptr) {
-        std::cout << PY_ERROR_MSG;
-        Py_DECREF(load_module);
-        Py_DECREF(func);
-        Py_DECREF(name);
-        return "issue with call func";
+    if (info.callfunc == nullptr) {
+        PythonCleanUp(info);
+        throw CALLING_ERROR;
     }
 
-    std::string key = _PyUnicode_AsString(callfunc);
+    std::string key = _PyUnicode_AsString(info.callfunc);
 
-    // Free all memory
-    Py_DECREF(args);
-    Py_DECREF(callfunc);
-    Py_DECREF(func);
-    Py_DECREF(load_module);
-    Py_DECREF(name);
-    callfunc = nullptr;
-    func = nullptr;
-    load_module = nullptr;
-    name = nullptr;
-    args = nullptr;
-
-    std::cout << key << std::flush;
     if (PyErr_Occurred()) {
         PyErr_Print();
     }
+
+    // Free all memory
+    PythonCleanUp(info);
+    std::cout << key << std::flush;
+
     return key;
 }
 
