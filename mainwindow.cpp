@@ -302,7 +302,7 @@ bool MainWindow::Login(std::string email, std::string password) {
     // get the salt for this username
     std::vector<std::string *> userData = {&salt, &first_name, &last_name};
     std::string email_command = "SELECT salt, first_name, last_name FROM credentials WHERE email = '" + email + "';";
-    rc = sqlite3_exec(db, email_command.c_str(), GetSalt, &userData, 0); // shallow copy of salt NOT fine
+    rc = sqlite3_exec(db, email_command.c_str(), GetSalt, &userData, 0); // shallow copy of the salt is NOT fine
     // if the salt remains empty, that means the email did not have any saved data.
     if (false && salt == " ") {
         ui->MessagePane->append("Invalid Login. Try Again\n");
@@ -318,21 +318,27 @@ bool MainWindow::Login(std::string email, std::string password) {
     } catch (PythonError NAME_ERROR) {
         std::cout << NAME_ERROR_MSG << " FOR CHECKPASSWORD() " << std::endl;
         ui->MessagePane->append(ERROR_PYTHON_LIB);
+        return false;
     } catch (PythonError MODULE_ERROR) {
         std::cout << MODULE_ERROR_MSG << " FOR CHECKPASSWORD() " << std::endl;
         ui->MessagePane->append(ERROR_PYTHON_LIB);
+        return false;
     } catch (PythonError FUNC_ERROR) {
         std::cout << FUNC_ERROR_MSG << " FOR CHECKPASSWORD() " << std::endl;
         ui->MessagePane->append(ERROR_PYTHON_LIB);
+        return false;
     } catch (PythonError CALLING_ERROR) {
         std::cout << CALLING_ERROR_MSG << " FOR CHECKPASSWORD() " << std::endl;
         ui->MessagePane->append(ERROR_PYTHON_LIB);
+        return false;
     } catch (PythonError ARGS_ERROR) {
         std::cout << ARGS_ERROR_MSG << " FOR CHECKPASSWORD() " << std::endl;
         ui->MessagePane->append(ERROR_PYTHON_LIB);
+        return false;
     } catch (...) {
         std::cout << UNEXPECTED_ERROR_MSG << std::endl;
         ui->MessagePane->append(ERROR_PYTHON_LIB);
+        return false;
     }
 
     if (rc == SQLITE_OK) {
@@ -381,6 +387,7 @@ bool MainWindow::Login(std::string email, std::string password) {
 
     ui->MessagePane->append("Invalid Login. Try Again\n");
     sqlite3_close(db);
+    return false;
 }
 
 /*
@@ -540,8 +547,25 @@ std::string MainWindow::GenSalt() {
 
 void MainWindow::on_VerifyBTN_clicked()
 {
-    // if it worked
-    ui->LogInBTN->setText("  Log Out");
+    // Make sure the input is not malformed
+    QString code = ui->OTPEntry->text();
+    if (code.length() != 6) {  // 6 is the length of the generated code.
+        ui->LogInBTN->setText("\nPlease enter 6 digit numeric code.\n");
+        return;
+    }
+    for (int i = 0; i < code.length(); i++) {
+        if (!code[i].isDigit()) {
+            ui->LogInBTN->setText("\nPlease enter 6 digit numeric code.\n");
+            return;
+        }
+    }
+
+    // send the given code as an integer for verification
+    if (Verify2FACode(code.toStdString(), TIME_INTERVAL)) {
+        ui->OTPMessagePane->appendPlainText("\nSuccess");
+        ui->LogInBTN->setText("  Log Out");
+
+    }
 }
 
 
@@ -556,43 +580,37 @@ void MainWindow::on_ResendCodeBTN_clicked()
         std::cout << NAME_ERROR_MSG << " FOR Send2FACode() " << std::endl;
         ui->MessagePane->append(ERROR_PYTHON_LIB);
         this->userUnverified.TFAKey = "ERROR";
-        ui->ResendConfirm->setText(ui->ResendConfirm->text() + "There was an error.\n");
+        ui->OTPMessagePane->appendPlainText("There was an error.\n");
         return;
     } catch (PythonError MODULE_ERROR) {
         std::cout << MODULE_ERROR_MSG << " FOR Send2FACode() " << std::endl;
         ui->MessagePane->append(ERROR_PYTHON_LIB);
         this->userUnverified.TFAKey = "ERROR";
-        ui->ResendConfirm->setText(ui->ResendConfirm->text() + "There was an error.\n");
-        return;
+        ui->OTPMessagePane->appendPlainText("There was an error.\n");        return;
     } catch (PythonError FUNC_ERROR) {
         std::cout << FUNC_ERROR_MSG << " FOR Send2FACode() " << std::endl;
         ui->MessagePane->append(ERROR_PYTHON_LIB);
         this->userUnverified.TFAKey = "ERROR";
-        ui->ResendConfirm->setText(ui->ResendConfirm->text() + "There was an error.\n");
-        return;
+        ui->OTPMessagePane->appendPlainText("There was an error.\n");        return;
     } catch (PythonError CALLING_ERROR) {
         std::cout << CALLING_ERROR_MSG << " FOR Send2FACode() " << std::endl;
         ui->MessagePane->append(ERROR_PYTHON_LIB);
         this->userUnverified.TFAKey = "ERROR";
-        ui->ResendConfirm->setText(ui->ResendConfirm->text() + "There was an error.\n");
-        return;
+        ui->OTPMessagePane->appendPlainText("There was an error.\n");        return;
     } catch (PythonError ARGS_ERROR) {
         std::cout << ARGS_ERROR_MSG << " FOR Send2FACode() " << std::endl;
         ui->MessagePane->append(ERROR_PYTHON_LIB);
         this->userUnverified.TFAKey = "ERROR";
-        ui->ResendConfirm->setText(ui->ResendConfirm->text() + "There was an error.\n");
-        return;
+        ui->OTPMessagePane->appendPlainText("There was an error.\n");        return;
     } catch (...) {
         std::cout << UNEXPECTED_ERROR_MSG << std::endl;
         ui->MessagePane->append(ERROR_PYTHON_LIB);
         this->userUnverified.TFAKey = "ERROR";
-        ui->ResendConfirm->setText(ui->ResendConfirm->text() + "There was an error.\n");
-        return;
+        ui->OTPMessagePane->appendPlainText("There was an error.\n");        return;
     }
 
     // If the logic gets this far, the code must have been sent or there an a
-    // unhandled, uncatastrophic error.
+    // unhandled, (unaccounted for) uncatastrophic error.
     std::cout << "Code resent. The key: " << this->userUnverified.TFAKey << std::flush;
-    ui->ResendConfirm->setText(ui->ResendConfirm->text() + "Code Resent\n");
+    ui->OTPMessagePane->appendPlainText("\nCode Sent\n");
 }
-

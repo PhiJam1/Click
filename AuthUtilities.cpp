@@ -96,7 +96,6 @@ int CheckPassword(void* data, int argc, char** argv, char** /* azColName */) {
     // argv[0] is the password hash.
     PyInfo info;
     info.name = PyUnicode_FromString((char*)"AuthUtils");
-    info.name = nullptr;
     if (info.name == nullptr) {
         PythonCleanUp(info);
         throw NAME_ERROR;
@@ -247,6 +246,6 @@ std::string Send2FACode(std::string email, int interval) {
     return key;
 }
 
-void Verify2FACode(std::string key, int interval) {
-
+bool Verify2FACode(std::string key, int interval) {
+    return true;
 }

@@ -84,6 +84,8 @@ private slots:
 
     void on_VerifyBTN_clicked();
 
+    void on_ResendCodeBTN_clicked();
+
 private:
     Ui::Click *ui;
 
