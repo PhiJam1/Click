@@ -18,6 +18,7 @@ typedef struct {
     std::string password;
     std::string salt;
     std::string TFAKey;
+    int OTPFailCount;
 } UserUnverified;
 
 QT_BEGIN_NAMESPACE

@@ -246,6 +246,57 @@ std::string Send2FACode(std::string email, int interval) {
     return key;
 }
 
-bool Verify2FACode(std::string key, int interval) {
-    return true;
+bool Verify2FACode(std::string code, std::string TFAkey, int interval) {
+    PyInfo info;
+    info.name = PyUnicode_FromString((char*)"AuthUtils");
+    if (PyErr_Occurred()) PyErr_Print();
+    if (info.name == nullptr) {
+        PythonCleanUp(info);
+        throw NAME_ERROR;
+    }
+
+
+    info.load_module = PyImport_Import(info.name);
+    if (PyErr_Occurred()) PyErr_Print();
+    if (info.load_module == nullptr) {
+        PythonCleanUp(info);
+        throw MODULE_ERROR;
+    }
+
+    // The actual function we need
+    info.func = PyObject_GetAttrString(info.load_module, (char*)"CheckOTP");
+    if (PyErr_Occurred()) PyErr_Print();
+    if (info.func == nullptr) {
+        PythonCleanUp(info);
+        throw FUNC_ERROR;
+    }
+
+    info.args = PyTuple_Pack(3,
+                             PyUnicode_FromString(code.c_str()),
+                             PyUnicode_FromString(TFAkey.c_str()),
+                             PyLong_FromLong(TIME_INTERVAL)
+                             );
+    if (info.args == nullptr) {
+        PythonCleanUp(info);
+        throw ARGS_ERROR;
+    }
+
+    // This calls  the  function
+    info.callfunc = PyObject_CallObject(info.func, info.args);
+    if (PyErr_Occurred()) PyErr_Print();
+    if (info.callfunc == nullptr) {
+        PythonCleanUp(info);
+        throw CALLING_ERROR;
+    }
+
+    double ret = PyFloat_AsDouble(info.callfunc);
+
+    if (PyErr_Occurred()) {
+        PyErr_Print();
+    }
+
+    // Free all memory
+    PythonCleanUp(info);
+    // 1.0 return value signifies the code was verified.
+    return ret == 1.0;
 }

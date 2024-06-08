@@ -350,6 +350,7 @@ bool MainWindow::Login(std::string email, std::string password) {
         this->userUnverified.email = email;
         this->userUnverified.password = password;
         this->userUnverified.salt = salt;
+        this->userUnverified.OTPFailCount = 0;
         // This will send the 2fa email to the user.
         // save the key so the topt object can be recreated
         // to verify the user's entered otp.
@@ -550,21 +551,31 @@ void MainWindow::on_VerifyBTN_clicked()
     // Make sure the input is not malformed
     QString code = ui->OTPEntry->text();
     if (code.length() != 6) {  // 6 is the length of the generated code.
-        ui->LogInBTN->setText("\nPlease enter 6 digit numeric code.\n");
+        ui->OTPMessagePane->appendPlainText("\nPlease enter 6 digit numeric code.\n");
         return;
     }
     for (int i = 0; i < code.length(); i++) {
         if (!code[i].isDigit()) {
-            ui->LogInBTN->setText("\nPlease enter 6 digit numeric code.\n");
+            ui->OTPMessagePane->appendPlainText("\nPlease enter 6 digit numeric code.\n");
             return;
         }
     }
 
     // send the given code as an integer for verification
-    if (Verify2FACode(code.toStdString(), TIME_INTERVAL)) {
+    if (Verify2FACode(code.toStdString(), this->userUnverified.TFAKey, TIME_INTERVAL)) {
         ui->OTPMessagePane->appendPlainText("\nSuccess");
         ui->LogInBTN->setText("  Log Out");
-
+        this->userUnverified.OTPFailCount = 0;
+        // now create the object
+        this->user = new User(this->userUnverified.first_name,
+                              this->userUnverified.last_name,
+                              this->userUnverified.email,
+                              this->userUnverified.password,
+                              this->userUnverified.salt);
+        ui->PageManager->setCurrentIndex(2);
+    } else {
+        ui->OTPMessagePane->appendPlainText("\nVerification Failed");
+        this->userUnverified.OTPFailCount++;
     }
 }
 

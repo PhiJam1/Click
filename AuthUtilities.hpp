@@ -33,6 +33,8 @@ int CheckPassword(void* data, int argc, char** argv, char** /* azColName */);
 // Functions that interface with the python code
 void GetSaltAndHash(std::string& hash, const char * password);
 std::string Send2FACode(std::string email, int interval);
-bool Verify2FACode(std::string key, int interval);
+bool Verify2FACode(std::string key, std::string TFAkey, int interval);
+void CheckForNewDevice(std::string email);
+void SendLoginAttemptWarning(std::string email);
 
 #endif // AUTHUTILITIES_HPP

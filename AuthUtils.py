@@ -38,3 +38,16 @@ def CheckOTP(code, key, time_interval):
         return 1.0
     else:
         return 2.0
+
+# we could do something with getting the machine's location
+# We should send the mac address at least\
+# maybe even try to ban users by adding their mac address to
+# a useer's banned list
+def SendWarningEmail(user_email, sys_email, sys_key):
+    subject = "Warning: Excessive Login Attempts"
+    msg = "Someone has tried to login to your account"
+    text = f"Subject: {subject}\n\n{msg}"
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.starttls()
+    server.login(sys_email, sys_key)
+    server.sendmail(sys_email, user_email, text)
