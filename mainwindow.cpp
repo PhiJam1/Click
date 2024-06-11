@@ -573,9 +573,17 @@ void MainWindow::on_VerifyBTN_clicked()
                               this->userUnverified.password,
                               this->userUnverified.salt);
         ui->PageManager->setCurrentIndex(2);
+        // This function will check if the current device has had a login before within
+        // a time frame. Of course, this doesn't mean much while this app is native,
+        // but this will be an important feature if we put the database of the cloud
+        // and anyone can login.
+        CheckForNewDevice(this->userUnverified.email);
     } else {
         ui->OTPMessagePane->appendPlainText("\nVerification Failed");
         this->userUnverified.OTPFailCount++;
+        if (this->userUnverified.OTPFailCount == 3) {
+            SendLoginAttemptWarning(this->userUnverified.email);
+        }
     }
 }
 

@@ -40,7 +40,7 @@ def CheckOTP(code, key, time_interval):
         return 2.0
 
 # we could do something with getting the machine's location
-# We should send the mac address at least\
+# We should send the mac address at least
 # maybe even try to ban users by adding their mac address to
 # a useer's banned list
 def SendWarningEmail(user_email, sys_email, sys_key):

@@ -24,6 +24,8 @@ typedef enum {
 
 void PythonInit();
 void PythonDestroy();
+std::string GetMacAddress();
+void UpdateHardwareBannedDevices(std::string list);
 
 // callback functions for database queries
 int EmailInUse(void* data, int argc, char** argv, char** /* azColName */);
@@ -36,5 +38,6 @@ std::string Send2FACode(std::string email, int interval);
 bool Verify2FACode(std::string key, std::string TFAkey, int interval);
 void CheckForNewDevice(std::string email);
 void SendLoginAttemptWarning(std::string email);
+
 
 #endif // AUTHUTILITIES_HPP
