@@ -342,26 +342,13 @@ bool CheckMacAddress(std::string email) {
     int ret = sqlite3_exec(db, check_email.c_str(), GetMacAddresses, (void *) &macList, 0);
     sqlite3_close(db);
     // Turn the string to a vector
-    std::vector<std::string> macs = GenerateMacList(macList);
+    std::vector<std::string> macs;
+    GenerateMacList(macs, macList);
 
     // Check if it is a known mac address
     // This function will send out an email if the current mac address is unknown
-    CheckKnownMacAddress(macs, macList);
-
-
-    return isBanned(macList, currMacAddr);
-
-    // if (ret != SQLITE_OK) {
-    //     // This is a new user. Add the current mac address to the list
-    //     macList = currMacAddr;
-    //     std::string insert = "INSERT INTO known_devices (email, mac_addresses) VALUES ('" + email + "', '" + macList + "');";
-
-    //     rc = sqlite3_exec(db, insert.c_str(), 0, 0, 0);
-    //     sqlite3_close(db);
-    //     return;
-    // }
-
-
+    CheckKnownMacAddress(macs, currMacAddr, email);
+    return !isBanned(macs, currMacAddr, email);
 }
 // Have a box in the UI with a list of banned mac addresses.
 void UpdateHardwareBannedDevices(std::string list) {
@@ -494,7 +481,151 @@ std::string GetMacAddress() {
 }
 
 // Pretty much will preform the python spilt($) function
-std::vector<std::string> GenerateMacList(std::string) {
-    std::vector<std::string> tmp;
-    return tmp;
+// Format will be 'xx:xx$xx:xx:$
+void GenerateMacList(std::vector<std::string>& macs, std::string macAddr) {
+    std::string buff = "";
+    macs.clear();
+    for (char c : macAddr) {
+        if (c == '$') {
+            macs.push_back(buff);
+            buff = "";
+        } else {
+            buff += c;
+        }
+    }
+}
+
+// function that will check if the device that was just signed into is new.
+// If it is, nothing will happen. If it is not, then send an email to the user
+// with this warning.
+void CheckKnownMacAddress(std::vector<std::string>& macs, std::string& currMacAddr, std::string & email) {
+    std::string total = "";
+    for (unsigned long i = 0; i < macs.size(); i++) {
+        if (macs.at(i) == currMacAddr) {
+            return; // This device is recognized
+        }
+        total += macs.at(i) + "$";
+    }
+    total += currMacAddr + "$";
+    // if we get here, then this must be a new device
+    // Add this new mac address to the database
+
+    // This is a new user. Add the current mac address to the list
+    sqlite3 * db;
+    int rc = sqlite3_open("creds.db", &db);
+    if (rc) {
+        return;
+    }
+    std::string insert = "INSERT INTO known_devices (email, mac_addresses) VALUES ('" + email + "', '" + total + "');";
+    rc = sqlite3_exec(db, insert.c_str(), 0, 0, 0);
+    sqlite3_close(db);
+
+    // Now send out the warning email
+    PyInfo info;
+    info.name = PyUnicode_FromString((char*)"AuthUtils");
+    if (PyErr_Occurred()) PyErr_Print();
+    if (info.name == nullptr) {
+        PythonCleanUp(info);
+        throw NAME_ERROR;
+    }
+
+
+    info.load_module = PyImport_Import(info.name);
+    if (PyErr_Occurred()) PyErr_Print();
+    if (info.load_module == nullptr) {
+        PythonCleanUp(info);
+        throw MODULE_ERROR;
+    }
+
+    // The actual function we need
+    info.func = PyObject_GetAttrString(info.load_module, (char*)"NewDeviceDetected");
+    if (PyErr_Occurred()) PyErr_Print();
+    if (info.func == nullptr) {
+        PythonCleanUp(info);
+        throw FUNC_ERROR;
+    }
+
+    info.args = PyTuple_Pack(3,
+                             PyUnicode_FromString(email.c_str()),
+                             PyUnicode_FromString(SYS_EMAIL),
+                             PyUnicode_FromString(SYS_EMAIL_KEY)
+                             );
+    if (info.args == nullptr) {
+        PythonCleanUp(info);
+        throw ARGS_ERROR;
+    }
+
+    // This calls  the  function
+    info.callfunc = PyObject_CallObject(info.func, info.args);
+    if (PyErr_Occurred()) PyErr_Print();
+    if (info.callfunc == nullptr) {
+        PythonCleanUp(info);
+        throw CALLING_ERROR;
+    }
+
+    if (PyErr_Occurred()) {
+        PyErr_Print();
+    }
+
+    // Free all memory
+    PythonCleanUp(info);
+}
+
+
+bool isBanned(std::vector<std::string>& bannedMacs, std::string currMacAddr, std::string email) {
+    for (unsigned long i = 0; i< bannedMacs.size(); i++) {
+        if (bannedMacs.at(i) == currMacAddr) {
+            // The current device has been banned. Send an email warning the user of the login attempt
+            PyInfo info;
+            info.name = PyUnicode_FromString((char*)"AuthUtils");
+            if (PyErr_Occurred()) PyErr_Print();
+            if (info.name == nullptr) {
+                PythonCleanUp(info);
+                throw NAME_ERROR;
+            }
+
+
+            info.load_module = PyImport_Import(info.name);
+            if (PyErr_Occurred()) PyErr_Print();
+            if (info.load_module == nullptr) {
+                PythonCleanUp(info);
+                throw MODULE_ERROR;
+            }
+
+            // The actual function we need
+            info.func = PyObject_GetAttrString(info.load_module, (char*)"BannedDeviceLoginAttempt");
+            if (PyErr_Occurred()) PyErr_Print();
+            if (info.func == nullptr) {
+                PythonCleanUp(info);
+                throw FUNC_ERROR;
+            }
+
+            info.args = PyTuple_Pack(3,
+                                     PyUnicode_FromString(email.c_str()),
+                                     PyUnicode_FromString(SYS_EMAIL),
+                                     PyUnicode_FromString(SYS_EMAIL_KEY)
+                                     );
+            if (info.args == nullptr) {
+                PythonCleanUp(info);
+                throw ARGS_ERROR;
+            }
+
+            // This calls  the  function
+            info.callfunc = PyObject_CallObject(info.func, info.args);
+            if (PyErr_Occurred()) PyErr_Print();
+            if (info.callfunc == nullptr) {
+                PythonCleanUp(info);
+                throw CALLING_ERROR;
+            }
+
+            if (PyErr_Occurred()) {
+                PyErr_Print();
+            }
+
+            // Free all memory
+            PythonCleanUp(info);
+            return true;
+        }
+    }
+    return false;
 }

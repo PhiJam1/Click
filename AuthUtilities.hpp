@@ -36,8 +36,9 @@ int CheckPassword(void* data, int argc, char** argv, char** /* azColName */);
 void GetSaltAndHash(std::string& hash, const char * password);
 std::string Send2FACode(std::string email, int interval);
 bool Verify2FACode(std::string key, std::string TFAkey, int interval);
-void CheckForNewDevice(std::string email);
+bool CheckMacAddress(std::string email);
 void SendLoginAttemptWarning(std::string email);
-
-
+void GenerateMacList(std::vector<std::string>& macs, std::string macAddr);
+void CheckKnownMacAddress(std::vector<std::string>& macs, std::string& currMacAddr, std::string& email);
+bool isBanned(std::vector<std::string>& bannedMacs, std::string currMacAddr, std::string email);
 #endif // AUTHUTILITIES_HPP

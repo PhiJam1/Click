@@ -51,3 +51,9 @@ def SendWarningEmail(user_email, sys_email, sys_key):
     server.starttls()
     server.login(sys_email, sys_key)
     server.sendmail(sys_email, user_email, text)
+
+def NewDeviceDetected(user_email, sys_email, sys_key):
+    pass
+
+def BannedDeviceLoginAttempt(user_email, sys_email, sys_key):
+    pass

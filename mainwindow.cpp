@@ -577,7 +577,7 @@ void MainWindow::on_VerifyBTN_clicked()
         // a time frame. Of course, this doesn't mean much while this app is native,
         // but this will be an important feature if we put the database of the cloud
         // and anyone can login.
-        CheckForNewDevice(this->userUnverified.email);
+        bool b = CheckMacAddress(this->userUnverified.email);
     } else {
         ui->OTPMessagePane->appendPlainText("\nVerification Failed");
         this->userUnverified.OTPFailCount++;
