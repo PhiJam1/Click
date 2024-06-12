@@ -1,7 +1,4 @@
 #include <iostream>
-#include <cstdlib>
-#include <cctype>
-#include <ctime>
 #include <bits/stdc++.h>
 #include <sqlite3.h>
 #include </usr/include/python3.12/Python.h>
@@ -11,10 +8,9 @@
 #include <netinet/in.h>
 #include <string.h>
 #include <sstream>
-#include <iomanip>
+#include <vector>
 
 #include "User.hpp"
-// #include "bcrypt.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "AuthUtilities.hpp";
@@ -35,6 +31,18 @@ typedef struct PyInfo {
 
 /* Callback functions */
 
+/*
+ * Callback function to set the mac address
+ *
+ */
+int GetMacAddresses(void* data, int argc, char** argv, char** /* azColName */) {
+    // data will be a pointer to a std::string that we assign the mac address to
+    if (argc == 0) {
+        return SQLITE_NOTFOUND;
+    }
+    data = (void *) argv;
+    return SQLITE_OK;
+}
 
 /*
  * Callback function. If this function is ever called, the query will have found a
@@ -307,18 +315,55 @@ bool Verify2FACode(std::string code, std::string TFAkey, int interval) {
     // 1.0 return value signifies the code was verified.
     return ret == 1.0;
 }
-
-void CheckForNewDevice(std::string email) {
-    // Get the mac address of this PC.
-    // have a table in that database that holds a list of known mac addresses per
-    // user email. Send out an email if this is a new log in. If it is not, do nothing
-    // if this is a new login, then add this mac address to the known list.
+// This function will check if the current mac address is a new mac address or if it is
+// part of the banned group. In either case, it will send out a relevent email.
+// It will only return false if the current mac address is banned or there is an error
+bool CheckMacAddress(std::string email) {
     std::string currMacAddr = GetMacAddress();
 
     // open the database and get the list of known mac addresses for this user.
+    sqlite3 * db;
+    int rc = sqlite3_open("creds.db", &db);
+    if (rc) {
+        return false;
+    }
+
+    // create a table if none exists for known mac addresses
+    const char * create_table_known_mac = "CREATE TABLE IF NOT EXISTS known_devices (email TEXT PRIMARY KEY, mac_addresses TEXT);";
+    rc = sqlite3_exec(db, create_table_known_mac, 0, 0, 0);
+    if (rc != SQLITE_OK) {
+        sqlite3_close(db);
+        return false;
+    }
+
+    // get the mac addresses associated with this email.
+    std::string check_email =  "SELECT mac_addresses FROM known_devices WHERE email = '" + email + "';";
+    std::string macList = "";
+    int ret = sqlite3_exec(db, check_email.c_str(), GetMacAddresses, (void *) &macList, 0);
+    sqlite3_close(db);
+    // Turn the string to a vector
+    std::vector<std::string> macs = GenerateMacList(macList);
+
+    // Check if it is a known mac address
+    // This function will send out an email if the current mac address is unknown
+    CheckKnownMacAddress(macs, macList);
+
+
+    return isBanned(macList, currMacAddr);
+
+    // if (ret != SQLITE_OK) {
+    //     // This is a new user. Add the current mac address to the list
+    //     macList = currMacAddr;
+    //     std::string insert = "INSERT INTO known_devices (email, mac_addresses) VALUES ('" + email + "', '" + macList + "');";
+
+    //     rc = sqlite3_exec(db, insert.c_str(), 0, 0, 0);
+    //     sqlite3_close(db);
+    //     return;
+    // }
+
 
 }
-
+// Have a box in the UI with a list of banned mac addresses.
 void UpdateHardwareBannedDevices(std::string list) {
     // todo
 }
@@ -446,4 +491,10 @@ std::string GetMacAddress() {
         oss.fill(tmp);
     }
     return oss.str();
+}
+
+// Pretty much will preform the python spilt($) function
+std::vector<std::string> GenerateMacList(std::string) {
+    std::vector<std::string> tmp;
+    return tmp;
 }

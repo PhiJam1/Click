@@ -33,7 +33,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>9</number>
+     <number>10</number>
     </property>
     <widget class="QWidget" name="SignUpPage">
      <widget class="QGroupBox" name="SignUpBox">
@@ -744,6 +744,19 @@ First of all, without your master password, the content of this application is j
       </property>
       <property name="text">
        <string>Keep Your Data Safe!</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="DecryptFileBTN_2">
+      <property name="geometry">
+       <rect>
+        <x>770</x>
+        <y>490</y>
+        <width>201</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Hardware Banned Devices</string>
       </property>
      </widget>
     </widget>
@@ -1941,6 +1954,165 @@ This code is valid for 10 minutes.</string>
      <zorder>ResendCodeBTN</zorder>
      <zorder>LockIMG2fa</zorder>
      <zorder>OTPMessagePane</zorder>
+    </widget>
+    <widget class="QWidget" name="HardwareBan">
+     <widget class="QLineEdit" name="HBEntry">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>160</y>
+        <width>281</width>
+        <height>291</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="HBHeader">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>90</y>
+        <width>291</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Edit your banned devices list</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="HBSaveBTN">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>480</y>
+        <width>131</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Save</string>
+      </property>
+      <property name="icon">
+       <iconset theme="go-down"/>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="LockIMG2fa_2">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>100</y>
+        <width>461</width>
+        <height>471</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>MainPageImg.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="LogoBannerTXT_13">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>361</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::WinPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+      <property name="plainText">
+       <string>Password Manager and Encryption Service</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="TFAHeader_3">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>470</y>
+        <width>291</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="HBBackBTN">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>530</y>
+        <width>131</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Back</string>
+      </property>
+      <property name="icon">
+       <iconset theme="go-previous"/>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QPushButton" name="AboutBTN">
