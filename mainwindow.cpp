@@ -284,7 +284,7 @@ bool MainWindow::Login(std::string email, std::string password) {
     std::string last_name = " ";
 
 
-
+    std::string tmp2 = GetMacAddress();
     // make email fully lower case
     std::transform(email.begin(), email.end(), email.begin(), [](unsigned char c){ return std::tolower(c); });
 

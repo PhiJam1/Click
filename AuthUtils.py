@@ -2,6 +2,7 @@ import bcrypt
 import time
 import pyotp
 import smtplib
+import requests
 
 def Register_Password(password):
     bytes = password.encode('utf-8')
@@ -53,7 +54,34 @@ def SendWarningEmail(user_email, sys_email, sys_key):
     server.sendmail(sys_email, user_email, text)
 
 def NewDeviceDetected(user_email, sys_email, sys_key):
-    pass
+    subject = "New Device Login"
+    msg = "Someone has tried to login to your account"
+    text = f"Subject: {subject}\n\n{msg}"
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.starttls()
+    server.login(sys_email, sys_key)
+    server.sendmail(sys_email, user_email, text)
 
 def BannedDeviceLoginAttempt(user_email, sys_email, sys_key):
-    pass
+    subject = "Warning: Excessive Login Attempts"
+    msg = "Someone has tried to login to your account"
+    text = f"Subject: {subject}\n\n{msg}"
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.starttls()
+    server.login(sys_email, sys_key)
+    server.sendmail(sys_email, user_email, text)
+
+def GetLocationInfo():
+    response = requests.get("http://ipinfo.io/json")
+    loc_info = dict(ip = "UNKNOWN", city = "UNKNOWN", region = "UNKNOWN", country = "UNKNOWN")
+    if response.status_code == 200:
+        data = response.json()
+        loc_info["ip"] = data.get("ip")
+        loc_info["city"] = data.get("city")
+        loc_info["region"] = data.get("region")
+        loc_info["country"] = data.get("country")
+        # loc = data.get("loc")  # this is latitude,longitude
+    return loc_info
+
+
+# do I need to be logging out and stopping the server?

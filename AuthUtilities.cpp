@@ -18,7 +18,7 @@
 #define PY_ERROR_MSG "Error with python function\n"
 
 // This fails when the Python include file (and <Python.h>) is added to AuthUtilities.h
-// I'm not sure why this is.
+// I'm not sure why this is. StackOverFlow says there may be an issue in the Python lib
 
 typedef struct PyInfo {
     PyObject * name = nullptr;
@@ -420,64 +420,22 @@ void SendLoginAttemptWarning(std::string email) {
 }
 
 
-// Function that will get the mac address of the current
-// device by opening a socket and searching through the
-// interfaces.
+// Function that will get the permentant mac address of the device
+// This method may not work for all linux distros. It depends on where
+// macaddress is stored and if the interface name (wlp0s20f3, in this case)
+// is consistent with the machines I tested on.
 std::string GetMacAddress() {
-    struct ifreq ifr;
-    struct ifconf ifc;
-    char buf[1024];
-    int success = 0;
+    std::string macAddress;
+    std::string path = "/sys/class/net/wlp0s20f3/device/ieee80211/phy0/macaddress";
+    std::ifstream ifs(path.c_str());
 
-    // Open a socket
-    int sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_IP);
-    if (sock == -1) {
-        return ""; // socket failed to open
+    if (ifs) {
+        std::getline(ifs, macAddress);
+    } else {
+        std::cerr << "Failed to read MAC address from " << path << std::endl;
     }
 
-    ifc.ifc_len = sizeof(buf);
-    ifc.ifc_buf = buf;
-
-    // Get a list of network interfaces loaded into ifc
-    if (ioctl(sock, SIOCGIFCONF, &ifc) == -1) {
-        return "";
-    }
-
-    // Interate over that list looking for the HWaddr
-    struct ifreq* it = ifc.ifc_req;
-    const struct ifreq* const end = it + (ifc.ifc_len / sizeof(struct ifreq));
-
-    for (; it != end; ++it) {
-        strcpy(ifr.ifr_name, it->ifr_name);
-        if (ioctl(sock, SIOCGIFFLAGS, &ifr) == 0) {
-            // don't count loopback interface; we want the hardware mac address
-            if (! (ifr.ifr_flags & IFF_LOOPBACK)) {
-                if (ioctl(sock, SIOCGIFHWADDR, &ifr) == 0) {
-                    success = 1;
-                    break;
-                }
-            }
-        }
-    }
-
-    if (!success) {
-        return "";
-    }
-
-    unsigned char mac_address_raw[6];
-    memcpy(mac_address_raw, ifr.ifr_hwaddr.sa_data, 6);
-    std::ostringstream oss;
-
-    for (int i = 0; i < 6; ++i) {
-        if (i != 0) {
-            oss << ":";
-        }
-        char tmp = oss.fill ('0');
-        oss.width (2);
-        oss << std::hex << static_cast<int>(mac_address_raw[i]);
-        oss.fill(tmp);
-    }
-    return oss.str();
+    return macAddress;
 }
 
 // Pretty much will preform the python spilt($) function
