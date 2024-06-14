@@ -329,7 +329,9 @@ bool CheckMacAddress(std::string email) {
     }
 
     // create a table if none exists for known mac addresses
-    const char * create_table_known_mac = "CREATE TABLE IF NOT EXISTS known_devices (email TEXT PRIMARY KEY, mac_addresses TEXT);";
+    const char * create_table_known_mac = "CREATE TABLE IF NOT EXISTS known_devices ("
+                                         "email TEXT PRIMARY KEY, "
+                                         "mac_address TEXT);";
     rc = sqlite3_exec(db, create_table_known_mac, 0, 0, 0);
     if (rc != SQLITE_OK) {
         sqlite3_close(db);
@@ -337,7 +339,7 @@ bool CheckMacAddress(std::string email) {
     }
 
     // get the mac addresses associated with this email.
-    std::string check_email =  "SELECT mac_addresses FROM known_devices WHERE email = '" + email + "';";
+    std::string check_email =  "SELECT mac_address FROM known_devices WHERE email = '" + email + "';";
     std::string macList = "";
     int ret = sqlite3_exec(db, check_email.c_str(), GetMacAddresses, (void *) &macList, 0);
     sqlite3_close(db);
@@ -474,7 +476,9 @@ void CheckKnownMacAddress(std::vector<std::string>& macs, std::string& currMacAd
     if (rc) {
         return;
     }
-    std::string insert = "INSERT INTO known_devices (email, mac_addresses) VALUES ('" + email + "', '" + total + "');";
+    std::string insert = "INSERT INTO known_devices (email, mac_address) VALUES "
+                         "('" + email + "', '" + currMacAddr + "');";
+
     rc = sqlite3_exec(db, insert.c_str(), 0, 0, 0);
     sqlite3_close(db);
 

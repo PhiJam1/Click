@@ -278,13 +278,33 @@ void MainWindow::on_LogInBTN_clicked()
 */
 
 bool MainWindow::Login(std::string email, std::string password) {
+    // This is a new user. Add the current mac address to the list
+    sqlite3 * db2;
+    char * errmsg;
+    int rc2 = sqlite3_open("creds.db", &db2);
+    if (rc2) {
+        return 0;
+    }
+
+    std::string insert = "CREATE TABLE IF NOT EXISTS known_devices ("
+                         "email TEXT PRIMARY KEY, "
+                         "mac_address TEXT);";
+    rc2 = sqlite3_exec(db2, insert.c_str(), 0, 0, &errmsg);
+    printf("%s\n\n", errmsg);
+
+    insert = "INSERT INTO known_devices (email, mac_address) VALUES "
+             "('john.doe@example.com', '00:11:22:33:44:55'), "
+             "('alice.jones@example.com', '22:33:44:55:66:77');";
+    rc2 = sqlite3_exec(db2, insert.c_str(), 0, 0, &errmsg);
+
+    sqlite3_close(db2);
+
+
     // user information
     std::string salt = " ";
     std::string first_name = " ";
     std::string last_name = " ";
 
-
-    std::string tmp2 = GetMacAddress();
     // make email fully lower case
     std::transform(email.begin(), email.end(), email.begin(), [](unsigned char c){ return std::tolower(c); });
 
@@ -566,6 +586,15 @@ void MainWindow::on_VerifyBTN_clicked()
         ui->OTPMessagePane->appendPlainText("\nSuccess");
         ui->LogInBTN->setText("  Log Out");
         this->userUnverified.OTPFailCount = 0;
+        // This function will check if the current device has had a login before within
+        // a time frame. Of course, this doesn't mean much while this app is native,
+        // but this will be an important feature if we put the database of the cloud
+        // and anyone can login.
+        if(!CheckMacAddress(this->userUnverified.email)) {
+            ui->OTPMessagePane->appendPlainText("Permission Denied\n");
+            return;
+        }
+
         // now create the object
         this->user = new User(this->userUnverified.first_name,
                               this->userUnverified.last_name,
@@ -573,11 +602,6 @@ void MainWindow::on_VerifyBTN_clicked()
                               this->userUnverified.password,
                               this->userUnverified.salt);
         ui->PageManager->setCurrentIndex(2);
-        // This function will check if the current device has had a login before within
-        // a time frame. Of course, this doesn't mean much while this app is native,
-        // but this will be an important feature if we put the database of the cloud
-        // and anyone can login.
-        bool b = CheckMacAddress(this->userUnverified.email);
     } else {
         ui->OTPMessagePane->appendPlainText("\nVerification Failed");
         this->userUnverified.OTPFailCount++;
