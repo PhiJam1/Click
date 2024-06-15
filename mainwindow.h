@@ -87,6 +87,12 @@ private slots:
 
     void on_ResendCodeBTN_clicked();
 
+    void on_HWBannBTN_clicked();
+
+    void on_HBBackBTN_clicked();
+
+    void on_HBSaveBTN_clicked();
+
 private:
     Ui::Click *ui;
 

@@ -255,6 +255,7 @@ void MainWindow::on_DecryptBackBTN_2_clicked()
 void MainWindow::on_AboutBTN_clicked()
 {
     ui->PageManager->setCurrentIndex(8);
+    ui->PageManager->setCurrentIndex(10);
 }
 
 
@@ -278,27 +279,6 @@ void MainWindow::on_LogInBTN_clicked()
 */
 
 bool MainWindow::Login(std::string email, std::string password) {
-    // This is a new user. Add the current mac address to the list
-    sqlite3 * db2;
-    char * errmsg;
-    int rc2 = sqlite3_open("creds.db", &db2);
-    if (rc2) {
-        return 0;
-    }
-
-    std::string insert = "CREATE TABLE IF NOT EXISTS known_devices ("
-                         "email TEXT PRIMARY KEY, "
-                         "mac_address TEXT);";
-    rc2 = sqlite3_exec(db2, insert.c_str(), 0, 0, &errmsg);
-    printf("%s\n\n", errmsg);
-
-    insert = "INSERT INTO known_devices (email, mac_address) VALUES "
-             "('john.doe@example.com', '00:11:22:33:44:55'), "
-             "('alice.jones@example.com', '22:33:44:55:66:77');";
-    rc2 = sqlite3_exec(db2, insert.c_str(), 0, 0, &errmsg);
-
-    sqlite3_close(db2);
-
 
     // user information
     std::string salt = " ";
@@ -657,3 +637,85 @@ void MainWindow::on_ResendCodeBTN_clicked()
     std::cout << "Code resent. The key: " << this->userUnverified.TFAKey << std::flush;
     ui->OTPMessagePane->appendPlainText("\nCode Sent\n");
 }
+
+
+
+void MainWindow::on_HWBannBTN_clicked()
+{
+    // Clear the current content
+    ui->HBEntry->clear();
+    // Load in the current banned list into the editable pane
+    sqlite3 * db;
+    int rc = sqlite3_open("creds.db", &db);
+    if (rc) {
+        ui->HBEntry->appendPlainText("Could not find list of banned devices.\n");
+        return;
+    }
+
+    // create a table if none exists
+    std::string check_email =  "SELECT mac_address FROM known_devices WHERE email = '" + this->user->getEmail() + "';";
+    std::string macList = "";
+    rc = sqlite3_exec(db, check_email.c_str(), GetMacAddresses, (void *) &macList, 0);
+    if (rc != SQLITE_OK) {
+        ui->HBEntry->appendPlainText("Could not find list of banned devices.\n");
+        sqlite3_close(db);
+        return;
+    }
+    sqlite3_close(db);
+    db = nullptr;
+
+    std::vector<std::string> macs;
+    GenerateMacList(macs, macList);
+    for (unsigned long i = 0; i < macs.size(); i++) {
+        ui->HBEntry->appendPlainText(QString::fromLocal8Bit(macs.at(i).c_str()));
+        ui->HBEntry->appendPlainText("\n");
+    }
+
+    ui->PageManager->setCurrentIndex(10);
+}
+
+
+void MainWindow::on_HBBackBTN_clicked()
+{
+    ui->PageManager->setCurrentIndex(user == nullptr ? 1 : 2);
+}
+
+
+void MainWindow::on_HBSaveBTN_clicked()
+{
+    // Grab the contents of the pane
+    std::string bannedList = ui->HBEntry->toPlainText().toStdString();
+
+    // Now make sure the format is accurate
+    std::cout << bannedList << std::flush;
+    std::string macListClean = "";
+    std::string buff = "";
+    for (unsigned long i = 0; i < bannedList.size(); i++) {
+        if (bannedList.at(i) == '\n') {
+            macListClean += buff + "$";
+            continue;
+        }
+        buff += bannedList.at(i);
+    }
+    macListClean += buff;
+
+    // Now save this to the database
+    ui->HBEntry->clear();
+    sqlite3 * db;
+    int rc = sqlite3_open("creds.db", &db);
+    if (rc) {
+        ui->HBEntry->appendPlainText("Could not find list of banned devices.\n");
+        return;
+    }
+
+    // create a table if none exists
+    std::string insert = "INSERT INTO known_devices (email, mac_address) VALUES "
+                         "('" + this->user->getEmail() + "', '" + macListClean + "');";
+
+    rc = sqlite3_exec(db, insert.c_str(), 0, 0, 0);
+    sqlite3_close(db);
+    db = nullptr;
+
+    ui->HBRes->setText(rc == SQLITE_OK ? "Failed to save\n" : "Saved!");
+}
+

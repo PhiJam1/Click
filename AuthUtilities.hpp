@@ -31,7 +31,7 @@ void UpdateHardwareBannedDevices(std::string list);
 int EmailInUse(void* data, int argc, char** argv, char** /* azColName */);
 int GetSalt(void* data, int argc, char** argv, char** /* azColName */);
 int CheckPassword(void* data, int argc, char** argv, char** /* azColName */);
-
+int GetMacAddresses(void* data, int argc, char** argv, char** /* azColName */);
 // Functions that interface with the python code
 void GetSaltAndHash(std::string& hash, const char * password);
 std::string Send2FACode(std::string email, int interval);

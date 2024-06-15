@@ -33,7 +33,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="SignUpPage">
      <widget class="QGroupBox" name="SignUpBox">
@@ -746,7 +746,7 @@ First of all, without your master password, the content of this application is j
        <string>Keep Your Data Safe!</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="DecryptFileBTN_2">
+     <widget class="QPushButton" name="HWBannBTN">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -1956,19 +1956,6 @@ This code is valid for 10 minutes.</string>
      <zorder>OTPMessagePane</zorder>
     </widget>
     <widget class="QWidget" name="HardwareBan">
-     <widget class="QLineEdit" name="HBEntry">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>160</y>
-        <width>281</width>
-        <height>291</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
      <widget class="QLabel" name="HBHeader">
       <property name="geometry">
        <rect>
@@ -2069,13 +2056,13 @@ This code is valid for 10 minutes.</string>
        <string>Password Manager and Encryption Service</string>
       </property>
      </widget>
-     <widget class="QLabel" name="TFAHeader_3">
+     <widget class="QLabel" name="HBRes">
       <property name="geometry">
        <rect>
-        <x>160</x>
-        <y>470</y>
-        <width>291</width>
-        <height>91</height>
+        <x>330</x>
+        <y>160</y>
+        <width>251</width>
+        <height>291</height>
        </rect>
       </property>
       <property name="font">
@@ -2111,6 +2098,19 @@ This code is valid for 10 minutes.</string>
       </property>
       <property name="flat">
        <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPlainTextEdit" name="HBEntry">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>160</y>
+        <width>281</width>
+        <height>301</height>
+       </rect>
+      </property>
+      <property name="plainText">
+       <string/>
       </property>
      </widget>
     </widget>
