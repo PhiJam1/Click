@@ -281,7 +281,7 @@ void MainWindow::on_LogInBTN_clicked()
 bool MainWindow::Login(std::string email, std::string password) {
 
     // user information
-    std::string salt = " ";
+    std::string salt = "";
     std::string first_name = " ";
     std::string last_name = " ";
 
@@ -304,7 +304,7 @@ bool MainWindow::Login(std::string email, std::string password) {
     std::string email_command = "SELECT salt, first_name, last_name FROM credentials WHERE email = '" + email + "';";
     rc = sqlite3_exec(db, email_command.c_str(), GetSalt, &userData, 0); // shallow copy of the salt is NOT fine
     // if the salt remains empty, that means the email did not have any saved data.
-    if (false && salt == " ") {
+    if (salt == "") {
         ui->MessagePane->append("Invalid Login. Try Again\n");
         sqlite3_close(db);
         return false;
@@ -652,7 +652,6 @@ void MainWindow::on_HWBannBTN_clicked()
         return;
     }
 
-    // create a table if none exists
     std::string check_email =  "SELECT mac_address FROM known_devices WHERE email = '" + this->user->getEmail() + "';";
     std::string macList = "";
     rc = sqlite3_exec(db, check_email.c_str(), GetMacAddresses, (void *) &macList, 0);
@@ -709,6 +708,12 @@ void MainWindow::on_HBSaveBTN_clicked()
     }
 
     // create a table if none exists
+    std::string create_table = "CREATE TABLE IF NOT EXISTS banned_devces (email TEXT PRIMARY KEY, mac_address TEXT);";
+    rc = sqlite3_exec(db, create_table.c_str(), 0, 0, 0);
+    if (rc != SQLITE_OK) {
+        ui->HBRes->setText("Failed to save\n");
+        return;
+    }
     std::string insert = "INSERT INTO known_devices (email, mac_address) VALUES "
                          "('" + this->user->getEmail() + "', '" + macListClean + "');";
 

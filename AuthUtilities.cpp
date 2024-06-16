@@ -40,7 +40,8 @@ int GetMacAddresses(void* data, int argc, char** argv, char** /* azColName */) {
     if (argc == 0) {
         return SQLITE_NOTFOUND;
     }
-    data = (void *) argv;
+    std::string * user_data = static_cast<std::string *> (data);
+    *user_data = *argv;
     return SQLITE_OK;
 }
 
@@ -341,20 +342,29 @@ bool CheckMacAddress(std::string email) {
     // get the mac addresses associated with this email.
     std::string check_email =  "SELECT mac_address FROM known_devices WHERE email = '" + email + "';";
     std::string macList = "";
-    int ret = sqlite3_exec(db, check_email.c_str(), GetMacAddresses, (void *) &macList, 0);
-    sqlite3_close(db);
+    rc = sqlite3_exec(db, check_email.c_str(), GetMacAddresses, (void *) &macList, 0);
+
     // Turn the string to a vector
     std::vector<std::string> macs;
     GenerateMacList(macs, macList);
-
     // Check if it is a known mac address
     // This function will send out an email if the current mac address is unknown
     CheckKnownMacAddress(macs, currMacAddr, email);
+
+    // Get the list of hardware banned devices
+
+    std::string getBannedDev =  "SELECT mac_address FROM known_devices WHERE email = '" + email + "';";
+    macList = "";
+    rc = sqlite3_exec(db, check_email.c_str(), GetMacAddresses, (void *) &macList, 0);
+    if (rc != SQLITE_OK) {
+        return false;
+    }
+    sqlite3_close(db);
+    db = nullptr;
+
+    macs.clear();
+    GenerateMacList(macs, macList);
     return !isBanned(macs, currMacAddr, email);
-}
-// Have a box in the UI with a list of banned mac addresses.
-void UpdateHardwareBannedDevices(std::string list) {
-    // todo
 }
 
 // This fucntion is called when a device attempts to login in 3 times unsuccessfully with
@@ -477,7 +487,7 @@ void CheckKnownMacAddress(std::vector<std::string>& macs, std::string& currMacAd
         return;
     }
     std::string insert = "INSERT INTO known_devices (email, mac_address) VALUES "
-                         "('" + email + "', '" + currMacAddr + "');";
+                         "('" + email + "', '" + currMacAddr + "$');";
 
     rc = sqlite3_exec(db, insert.c_str(), 0, 0, 0);
     sqlite3_close(db);
