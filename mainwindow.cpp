@@ -50,7 +50,7 @@ void MainWindow::on_LoginBTN_clicked() {
     if (Login(username.toStdString(), password.toStdString())) {
         ui->PageManager->setCurrentIndex(9);
     }
-}
+    }
 
 
 void MainWindow::on_SignUpBTN_clicked()

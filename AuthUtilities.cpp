@@ -352,10 +352,13 @@ bool CheckMacAddress(std::string email) {
     CheckKnownMacAddress(macs, currMacAddr, email);
 
     // Get the list of hardware banned devices
-
-    std::string getBannedDev =  "SELECT mac_address FROM known_devices WHERE email = '" + email + "';";
+    const char * create_table_banned_mac = "CREATE TABLE IF NOT EXISTS banned_devices ("
+                                         "email TEXT PRIMARY KEY, "
+                                         "mac_address TEXT);";
+    rc = sqlite3_exec(db, create_table_banned_mac, 0, 0, 0);
+    std::string getBannedDev =  "SELECT mac_address FROM banned_devices WHERE email = '" + email + "';";
     macList = "";
-    rc = sqlite3_exec(db, check_email.c_str(), GetMacAddresses, (void *) &macList, 0);
+    rc = sqlite3_exec(db, getBannedDev.c_str(), GetMacAddresses, (void *) &macList, 0);
     if (rc != SQLITE_OK) {
         return false;
     }
