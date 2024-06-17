@@ -50,7 +50,7 @@ void MainWindow::on_LoginBTN_clicked() {
     if (Login(username.toStdString(), password.toStdString())) {
         ui->PageManager->setCurrentIndex(9);
     }
-    }
+}
 
 
 void MainWindow::on_SignUpBTN_clicked()
@@ -652,7 +652,7 @@ void MainWindow::on_HWBannBTN_clicked()
         return;
     }
 
-    std::string check_email =  "SELECT mac_address FROM known_devices WHERE email = '" + this->user->getEmail() + "';";
+    std::string check_email =  "SELECT mac_address FROM banned_devices WHERE email = '" + this->user->getEmail() + "';";
     std::string macList = "";
     rc = sqlite3_exec(db, check_email.c_str(), GetMacAddresses, (void *) &macList, 0);
     if (rc != SQLITE_OK) {
@@ -692,14 +692,15 @@ void MainWindow::on_HBSaveBTN_clicked()
     for (unsigned long i = 0; i < bannedList.size(); i++) {
         if (bannedList.at(i) == '\n') {
             macListClean += buff + "$";
+            buff = "";
             continue;
         }
         buff += bannedList.at(i);
     }
-    macListClean += buff;
+    macListClean += buff + "$";
 
     // Now save this to the database
-    ui->HBEntry->clear();
+    // ui->HBEntry->clear();
     sqlite3 * db;
     int rc = sqlite3_open("creds.db", &db);
     if (rc) {
@@ -708,16 +709,22 @@ void MainWindow::on_HBSaveBTN_clicked()
     }
 
     // create a table if none exists
-    std::string create_table = "CREATE TABLE IF NOT EXISTS banned_devces (email TEXT PRIMARY KEY, mac_address TEXT);";
+    std::string create_table = "CREATE TABLE IF NOT EXISTS banned_devices (email TEXT PRIMARY KEY, mac_address TEXT);";
     rc = sqlite3_exec(db, create_table.c_str(), 0, 0, 0);
     if (rc != SQLITE_OK) {
         ui->HBRes->setText("Failed to save\n");
         return;
     }
-    std::string insert = "INSERT INTO known_devices (email, mac_address) VALUES "
-                         "('" + this->user->getEmail() + "', '" + macListClean + "');";
+    char * errpr;
+    std::string remove_curr = "DELETE FROM banned_devices WHERE email = 'philipjames2004@gmail.com';";
+    sqlite3_exec(db, remove_curr.c_str(), 0, 0, & errpr);
+    // std::string insert = "INSERT INTO banned_devices (email, mac_address) VALUES "
+    //                      "('" + this->user->getEmail() + "', '" + macListClean + "');";
+    std::string insert = "INSERT INTO banned_devices (email, mac_address) VALUES "
+                         "('philipjames2004@gmail.com', '" + macListClean + "');";
 
-    rc = sqlite3_exec(db, insert.c_str(), 0, 0, 0);
+
+    rc = sqlite3_exec(db, insert.c_str(), 0, 0, &errpr);
     sqlite3_close(db);
     db = nullptr;
 
