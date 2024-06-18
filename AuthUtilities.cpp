@@ -408,10 +408,11 @@ void SendLoginAttemptWarning(std::string email) {
         throw FUNC_ERROR;
     }
 
-    info.args = PyTuple_Pack(3,
-                        PyUnicode_FromString(email.c_str()),
-                        PyUnicode_FromString(SYS_EMAIL),
-                             PyUnicode_FromString(SYS_EMAIL_KEY)
+    info.args = PyTuple_Pack(4,
+                            PyUnicode_FromString(email.c_str()),
+                            PyUnicode_FromString(SYS_EMAIL),
+                            PyUnicode_FromString(SYS_EMAIL_KEY),
+                            PyUnicode_FromString(macAddr.c_str())
                         );
     if (info.args == nullptr) {
         PythonCleanUp(info);
@@ -520,10 +521,11 @@ void CheckKnownMacAddress(std::vector<std::string>& macs, std::string& currMacAd
         throw FUNC_ERROR;
     }
 
-    info.args = PyTuple_Pack(3,
+    info.args = PyTuple_Pack(4,
                              PyUnicode_FromString(email.c_str()),
                              PyUnicode_FromString(SYS_EMAIL),
-                             PyUnicode_FromString(SYS_EMAIL_KEY)
+                             PyUnicode_FromString(SYS_EMAIL_KEY),
+                             PyUnicode_FromString(currMacAddr.c_str())
                              );
     if (info.args == nullptr) {
         PythonCleanUp(info);
@@ -575,10 +577,11 @@ bool isBanned(std::vector<std::string>& bannedMacs, std::string currMacAddr, std
                 throw FUNC_ERROR;
             }
 
-            info.args = PyTuple_Pack(3,
+            info.args = PyTuple_Pack(4,
                                      PyUnicode_FromString(email.c_str()),
                                      PyUnicode_FromString(SYS_EMAIL),
-                                     PyUnicode_FromString(SYS_EMAIL_KEY)
+                                     PyUnicode_FromString(SYS_EMAIL_KEY),
+                                     PyUnicode_FromString(currMacAddr.c_str())
                                      );
             if (info.args == nullptr) {
                 PythonCleanUp(info);
