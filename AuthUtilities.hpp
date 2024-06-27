@@ -41,5 +41,5 @@ void SendLoginAttemptWarning(std::string email);
 void GenerateMacList(std::vector<std::string>& macs, std::string macAddr);
 void CheckKnownMacAddress(std::vector<std::string>& macs, std::string& currMacAddr, std::string& email);
 bool isBanned(std::vector<std::string>& bannedMacs, std::string currMacAddr, std::string email);
-
+void EncryptStuff();
 #endif // AUTHUTILITIES_HPP

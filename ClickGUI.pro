@@ -41,4 +41,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     AuthUtils.py \
+    Kyber.py \
     secret.txt

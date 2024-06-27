@@ -607,3 +607,55 @@ bool isBanned(std::vector<std::string>& bannedMacs, std::string currMacAddr, std
     }
     return false;
 }
+
+
+void EncryptStuff() {
+    // The current device has been banned. Send an email warning the user of the login attempt
+    PyInfo info;
+    info.name = PyUnicode_FromString((char*)"Kyber");
+    if (PyErr_Occurred()) PyErr_Print();
+    if (info.name == nullptr) {
+        PythonCleanUp(info);
+        throw NAME_ERROR;
+    }
+
+
+    info.load_module = PyImport_Import(info.name);
+    if (PyErr_Occurred()) PyErr_Print();
+    if (info.load_module == nullptr) {
+        PythonCleanUp(info);
+        throw MODULE_ERROR;
+    }
+
+    // The actual function we need
+    info.func = PyObject_GetAttrString(info.load_module, (char*)"EncryptionDriver");
+    if (PyErr_Occurred()) PyErr_Print();
+    if (info.func == nullptr) {
+        PythonCleanUp(info);
+        throw FUNC_ERROR;
+    }
+
+    info.args = PyTuple_Pack(2,
+                             PyUnicode_FromString("passward1234"),
+                             PyUnicode_FromString("password4321")
+                             );
+    if (info.args == nullptr) {
+        PythonCleanUp(info);
+        throw ARGS_ERROR;
+    }
+
+    // This calls  the  function
+    info.callfunc = PyObject_CallObject(info.func, info.args);
+    if (PyErr_Occurred()) PyErr_Print();
+    if (info.callfunc == nullptr) {
+        PythonCleanUp(info);
+        throw CALLING_ERROR;
+    }
+
+    if (PyErr_Occurred()) {
+        PyErr_Print();
+    }
+
+    // Free all memory
+    PythonCleanUp(info);
+}
