@@ -184,7 +184,15 @@ def EncryptionDriver(plaintext, password):
 
   return u, v # - the ciphertext
 
-def DecryptionDriver(password, u, v):
+def DecryptionDriver(password, key):
+  key_l = key.split("!")
+  u = [key_l[0].split(","), key_l[1].split(",")]
+  v = key_l[2].split(",")
+  for i in range(len(u)):
+    for j in range(len(u[i])):
+      u[i][j] = np.int64(u[i][j])
+  for i in range(len(v)):
+    v[i] = np.int64(v[i])
   b1, b2, s = GenKey(password)
   plaintext_bin = decrypt(s, u, v)
   return convert_bin_to_msg(plaintext_bin)

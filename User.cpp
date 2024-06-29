@@ -9,6 +9,8 @@
 #include "User.hpp"
 #include "XOR.hpp"
 #include "blowfish.hpp"
+#include "Kyber.hpp"
+
 
 int User::SetCiphers(char ** argv) {
     this->ciphers.push_back((CipherInfo) {(CipherType_t) std::stoi(argv[0]), argv[1], argv[2], argv[3]});
@@ -104,6 +106,8 @@ void User::CreateCipher(std::string login_name, std::string username, std::strin
         ciphertext = advancedXorEncryptionPassword(password_u, password.substr(0,5));
     } else if (type == BLOWFISH) {
         ciphertext = EncryptDriverPassword(password_u, password.substr(0, 4)); // should rename that function
+    } else if (type == KYBER) {
+        ciphertext = KyberEncryptDriverPassword(password_u, password.substr(0, 8)); // should rename that function
     }
     ciphers.push_back((CipherInfo) {type, login_name, username, ciphertext});
     SaveUserData();
@@ -136,6 +140,8 @@ std::pair<std::string, std::string> User::RetrievePassword(std::string serviceNa
         plaintext = advancedXorDecryptionPassword(ciphertext, password.substr(0, 5));
     } else if (ciphers.at(idx).type == BLOWFISH) {
         plaintext = DecryptDriverPassword(ciphers.at(idx).ciphertext, password.substr(0, 4));
+    } else if (ciphers.at(idx).type == KYBER) {
+        plaintext = KyberDecryptDriverPassword(ciphers.at(idx).ciphertext, password.substr(0, 8));
     }
     ret.first = ciphers.at(idx).username;
     ret.second = plaintext;

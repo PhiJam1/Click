@@ -13,6 +13,7 @@ LIBS += -lpython3.12
 
 SOURCES += \
     AuthUtilities.cpp \
+    Kyber.cpp \
     User.cpp \
     XOR.cpp \
     blowfish.cpp \
@@ -23,6 +24,7 @@ SOURCES += \
 HEADERS += \
     AuthUtilities.hpp \
     CipherType.hpp \
+    Kyber.hpp \
     Secrets.hpp \
     User.hpp \
     XOR.hpp \

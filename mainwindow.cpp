@@ -254,7 +254,6 @@ void MainWindow::on_DecryptBackBTN_2_clicked()
 
 void MainWindow::on_AboutBTN_clicked()
 {
-    EncryptStuff();
     ui->PageManager->setCurrentIndex(8);
     ui->PageManager->setCurrentIndex(10);
 }
