@@ -37,7 +37,7 @@ User::User(std::string firstName, std::string lastName, std::string email, std::
         std::cout << "Error opening up user database\n";
         return;
     }
-    std::string query = "SELECT type, service_name, username, ciphertext FROM " + this->email + ";";
+    std::string query = "SELECT type, service_name, username, ciphertext FROM \"" + this->email + "\";";
     rc = sqlite3_exec(db, query.c_str(), SetCiphersCallBack, this, 0);
     if (rc != SQLITE_OK) std::cout << sqlite3_errmsg(db) << std::endl;
     sqlite3_close(db);
@@ -66,12 +66,13 @@ void User::SaveUserData() {
     }
     // delete everything in this user's table so we can overwrite all the data
 
-    std::string dropTableQuery = "DROP TABLE IF EXISTS " + this->email + ";";
+    std::string dropTableQuery = "DROP TABLE IF EXISTS \"" + this->email + "\";";
     rc = sqlite3_exec(db, dropTableQuery.c_str(), 0, 0, 0);
 
     // recreate the table
-    std::string create_table = "CREATE TABLE IF NOT EXISTS " + this->email + " (type TEXT, service_name TEXT, username TEXT, ciphertext TEXT);";
-    rc = sqlite3_exec(db, create_table.c_str(), 0, 0, 0);
+    char * error;
+    std::string create_table = "CREATE TABLE IF NOT EXISTS \"" + this->email + "\" (type TEXT, service_name TEXT, username TEXT, ciphertext TEXT);";
+    rc = sqlite3_exec(db, create_table.c_str(), 0, 0, &error);
     if (rc != SQLITE_OK) {
         std::cout << "Error creating creds table\n";
         sqlite3_close(db);
@@ -79,7 +80,7 @@ void User::SaveUserData() {
     }
 
     for (int i = 0; i < ciphers.size(); i++) {
-        std::string insert = "INSERT INTO " + this->email + " (type, service_name, username, ciphertext) VALUES (" +
+        std::string insert = "INSERT INTO \"" + this->email + "\" (type, service_name, username, ciphertext) VALUES (" +
                              "'" + std::to_string(ciphers.at(i).type) + "', " +
                              "'" + ciphers.at(i).service_name + "', " +
                              "'" + ciphers.at(i).username + "', " +

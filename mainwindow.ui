@@ -33,7 +33,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>10</number>
+     <number>5</number>
     </property>
     <widget class="QWidget" name="SignUpPage">
      <widget class="QGroupBox" name="SignUpBox">
@@ -860,6 +860,11 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <item>
        <property name="text">
         <string>Blowfish</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Kyber</string>
        </property>
       </item>
      </widget>
