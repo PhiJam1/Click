@@ -7,6 +7,9 @@
 #include <unistd.h>
 #include <netinet/in.h>
 #include <string.h>
+#include <string>
+#include <sstream>
+
 #include <sstream>
 #include <vector>
 
@@ -610,7 +613,9 @@ bool isBanned(std::vector<std::string>& bannedMacs, std::string currMacAddr, std
 
 
 void EncryptStuff() {
-    // The current device has been banned. Send an email warning the user of the login attempt
+    std::vector<std::vector<int>> u;
+    std::vector<int> v;
+
     PyInfo info;
     info.name = PyUnicode_FromString((char*)"Kyber");
     if (PyErr_Occurred()) PyErr_Print();
@@ -652,10 +657,65 @@ void EncryptStuff() {
         throw CALLING_ERROR;
     }
 
+    // Get the return values. We should get (u, v).
+    PyObject * t1 = PyTuple_GetItem(info.callfunc, 0);
+    PyObject * t2 = PyTuple_GetItem(info.callfunc, 1);
+
+    Py_ssize_t outerSize = PyList_Size(t1);
+    std::cout << outerSize << "   " << std::flush;
+    for (Py_ssize_t i = 0; i < outerSize; ++i) {
+        PyObject *innerList = PyList_GetItem(t1, i);
+        Py_ssize_t innerSize = PyList_Size(innerList);
+        std::cout << innerSize << std::flush;
+        std::vector<int> buff;
+        for (Py_ssize_t j = 0; j < innerSize; ++j) {
+            PyObject *item = PyList_GetItem(innerList, j);
+                long long value = PyLong_AsLongLong(item);
+                std::cout << value << " ";
+                buff.push_back(value);
+        }
+        u.push_back(buff);
+        std::cout << std::flush;
+    }
+
+    // Process the second element (list of numpy.int64)
+    Py_ssize_t size = PyList_Size(t2);
+    for (Py_ssize_t i = 0; i < size; ++i) {
+        PyObject *item = PyList_GetItem(t2, i);
+        long long value = PyLong_AsLongLong(item);
+        std::cout << value << std::endl;
+        v.push_back(value);
+
+    }
+    std::string key = "";
+    for (auto i = 0; i < u.size(); i++) {
+        for (auto j = 0; j < u.at(i).size(); j++) {
+            key += std::to_string(u.at(i).at(j))
+                + (j + 1 < u.at(i).size() ? "," : "!");
+        }
+    }
+    for (auto i = 0; i < v.size(); i++) {
+        key += std::to_string(v.at(i))
+               + (i + 1 < v.size() ? "," : "");
+    }
+    std::cout << std::endl;
     if (PyErr_Occurred()) {
         PyErr_Print();
     }
 
     // Free all memory
     PythonCleanUp(info);
+
+    // Now store this information
+    // Format will be #,!#,#,#,!,#,#,#
+    std::cout << key << std::flush;
+
+    // store the key in the database with the rest of the info ....
+
+    // Try to Decrypt with the same key
+    DecryptStuff(key, "password4321");
+}
+
+DecryptStuff(std::string key, std::string password) {
+// todo
 }

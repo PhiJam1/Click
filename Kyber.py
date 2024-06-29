@@ -182,8 +182,7 @@ def EncryptionDriver(plaintext, password):
   e_2 = (np.random.random([n - 1]) * 3).astype(int) - 1
   u, v = encrypt(A, t, plaintext_bin, r, e_1, e_2)
 
-  # return u, v - the ciphertext, and s - the private key
-  return u, v, s
+  return u, v # - the ciphertext
 
 def DecryptionDriver(password, u, v):
   b1, b2, s = GenKey(password)
