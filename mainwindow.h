@@ -9,7 +9,7 @@
 #define ERROR_TXT_HEADER_SINGUP_PAGE        "Sign Up to use the service."
 #define ERROR_PYTHON_LIB                    "There was an interval error access a library. Please try again later or contact the developer.\n"
 #define ERROR_SAVING_CREDS                  "Error saving cred data\n"
-#define UNEXPECTED_ERROR_MSG                "oh fuck"
+#define UNEXPECTED_ERROR_MSG                "There was an unexpected error\n"
 
 typedef struct {
     std::string first_name;

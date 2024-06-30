@@ -64,7 +64,7 @@ def SendWarningEmail(user_email, sys_email, sys_key, mac_address):
     loc_info = GetLocationInfo()
     subject = "Warning: Excessive Login Attempts"
     msg = "Someone tried to access your account and failed several times. They have your email and password.\n"
-    msg += "This person's location information is provided below\n"
+    msg += " This person's location information is provided below\n"
     msg += "Country: " + loc_info['country'] + "\nRegion: " + loc_info["region"] + "\n"
     msg += "City: " + loc_info['city'] + "\nIP Address: " + loc_info["ip"] + "\n"
     msg += "Mac Address: " + mac_address
@@ -87,7 +87,7 @@ def NewDeviceDetected(user_email, sys_email, sys_key, mac_address):
     msg += "Country: " + loc_info['country'] + "\nRegion: " + loc_info["region"] + "\n"
     msg += "City: " + loc_info['city'] + "\nIP Address: " + loc_info["ip"] + "\n"
     msg += "Mac Address: " + mac_address
-    msg += "\nIf you don't recognize this activity, please log into your account and banned this mac address from further attempts."
+    msg += "\n If you don't recognize this activity, please log into your account and banned this mac address from further attempts."
     msg += ending
     text = f"Subject: {subject}\n\n{msg}"
     server = smtplib.SMTP("smtp.gmail.com", 587)
