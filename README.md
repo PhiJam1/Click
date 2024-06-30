@@ -22,29 +22,37 @@ The GUI is thanks to QT Framework. This is built as a widget application. User i
 I developed this off of QT Framework on Fedora and Ubuntu. I complied with QMake. After cloning this repo, you will need to open the `ClickGUI.pro` file with the QT IDE. Once you build and run, a new build directory should be created. In that directory, the databases `creds.db` and 'ciphers.db' will be created for you. It is where all your personal information will end up. 
 
 ### Development Process
-I started this project without a GUI. I wrote all of the backend encryption algorithms in VSCode and that can be found in [this repo](https://github.com/PhiJam1/Click). From there, I ported this over to QT's IDE to build the GUI. Note that all of these files seem lumped under one directory in this repo, but QT has its own way of storing files that doesn't seem to translate well with git. 
+I started by designing and implementing my own classical encryption scheme, which I call dynamic xor. It uses a constantly, deterministically changing key to encrypt plaintext with the xor operation. It is not vulnerable to a frequency analysis or any trivial code breaking tactic (other than brute force, of course). I then implemented Blowfish myself. I connected the database to allow for data persistence. I then I took this command line application and gave it a full GUI with QT framework. 
 
-<img width="767" alt="image" src="https://github.com/PhiJam1/ClickGUI/assets/79670114/0429114d-c79a-47ab-8adf-13eb85e1119e">
+Once I had that working. I used both C++ and Python to implement Kyber. I also added hardware scanning and two factor authentication at this stage. 
 
 ### Screenshots From Application
 #### Login Page
-![image](https://github.com/PhiJam1/ClickGUI/assets/79670114/30a59abb-250a-416b-bedd-df4afeb1e908)
+![image](https://github.com/PhiJam1/Click/assets/79670114/290bfd24-70a4-47c0-9a39-1fec2b0eeba7)
 #### Sign Up Page
-![image](https://github.com/PhiJam1/ClickGUI/assets/79670114/1bca9ddb-a7f5-4ed6-9621-0a0d800843f7)
+![image](https://github.com/PhiJam1/Click/assets/79670114/f8569262-617d-4294-a12b-ca5a5785495b)
+#### 2FA Page
+![image](https://github.com/PhiJam1/Click/assets/79670114/29102c30-cd52-4568-bf84-3c6e320f8634)
 #### Main Page
-![image](https://github.com/PhiJam1/ClickGUI/assets/79670114/a8b23572-59c8-462c-824d-fb3b45c06923)
+![image](https://github.com/PhiJam1/Click/assets/79670114/ce6e533d-30d4-4ac1-ac9b-480d7bc11096)
 #### Create Cipher Page
-![image](https://github.com/PhiJam1/ClickGUI/assets/79670114/6eecfe05-451a-4a0e-b233-6177b541015a)
+![image](https://github.com/PhiJam1/Click/assets/79670114/f331e083-6d91-44ba-9a3e-8297b90e1b8e)
+
 #### Retrieve Cipher Page
-![image](https://github.com/PhiJam1/ClickGUI/assets/79670114/7bbd683f-b0a9-43d0-82b3-7686544bcf5a)
+![image](https://github.com/PhiJam1/Click/assets/79670114/ede84945-7c06-4019-aa2d-e3804c2454c2)
+
 #### Delete Page
-![image](https://github.com/PhiJam1/ClickGUI/assets/79670114/662f9986-88c9-49a9-826e-47e59e8a7a40)
+![image](https://github.com/PhiJam1/Click/assets/79670114/5125e249-b25f-4940-898a-bf5cd1a63fe0)
+
+#### Hardware Ban Page
+![image](https://github.com/PhiJam1/Click/assets/79670114/1c0eea30-85fc-4110-aefd-b00b771e6ff2)
+
 #### Encrypt a File Page
-![image](https://github.com/PhiJam1/ClickGUI/assets/79670114/179bd4e2-7355-4ea4-b2d9-0b4ced0aff93)
+![image](https://github.com/PhiJam1/Click/assets/79670114/d4ef919a-cc87-4387-8d9b-d5c7e9034fe9)
+
 #### Decrypt a File Page
-![image](https://github.com/PhiJam1/ClickGUI/assets/79670114/b84ffb21-e2cd-405b-89bb-a1ab795ed024)
-#### About Page
-![image](https://github.com/PhiJam1/ClickGUI/assets/79670114/617bba8e-4d87-4fd7-a483-d649d05cd1dc)
+![image](https://github.com/PhiJam1/Click/assets/79670114/eab816a5-a6df-40ea-8278-0a06bdf8462f)
+
 
 ### Disclaimers
 This is an education venture and not meant for use with real passwords. I personally implemented all the encryption algorithms the application uses. While this helped me gain a much better understanding of cryptography (the primary goal of this project), you should only use professional implementations of these algorithms for any cryptographically secure use. Other concerns are with random numbers and SQL injection. I do not generate cryptographically secure numbers in most of these algorithms and do not check for malicious SQL injection input. The goal of this project is to understand secure login with password hashing, two factor authentication, one time passcodes, encryption algorithms, and get exposure to the QT framework for building desktop applications. 
