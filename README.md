@@ -53,6 +53,15 @@ Once I had that working. I used both C++ and Python to implement Kyber. I also a
 #### Decrypt a File Page
 ![image](https://github.com/PhiJam1/Click/assets/79670114/eab816a5-a6df-40ea-8278-0a06bdf8462f)
 
+#### OTA Email
+![image](https://github.com/PhiJam1/Click/assets/79670114/07f31625-1a2c-44c3-8e49-b702137f4a27)
+
+#### Warning Email
+![image](https://github.com/PhiJam1/Click/assets/79670114/e8e1813f-9571-433c-a5c9-c06f4d1edcb8)
+
+### New Device Detected Email
+![image](https://github.com/PhiJam1/Click/assets/79670114/8c21c0fb-c3b4-464d-9d55-6636bd1d81b6)
+
 
 ### Disclaimers
 This is an education venture and not meant for use with real passwords. I personally implemented all the encryption algorithms the application uses. While this helped me gain a much better understanding of cryptography (the primary goal of this project), you should only use professional implementations of these algorithms for any cryptographically secure use. Other concerns are with random numbers and SQL injection. I do not generate cryptographically secure numbers in most of these algorithms and do not check for malicious SQL injection input. The goal of this project is to understand secure login with password hashing, two factor authentication, one time passcodes, encryption algorithms, and get exposure to the QT framework for building desktop applications. 
